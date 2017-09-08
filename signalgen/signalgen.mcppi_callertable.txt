@@ -1,0 +1,17 @@
+main
+	__CC2DW
+		____DoICP
+	Soft_SPI_Init
+	UART1_Init
+	UART1_Write
+	set_pot
+		Soft_SPI_Write
+			Delay_1us
+			Delay_22us
+	PrintAString
+		UART1_Write
+	UART1_Data_Ready
+	UART1_Read
+	IntToStr
+		WordToStr
+			Div_16x16_U

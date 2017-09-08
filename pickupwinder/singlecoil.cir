@@ -1,0 +1,22 @@
+* C:\Projects\pickupwinder\singlecoil.sch
+
+* Schematics Version 9.1 - Web Update 1
+* Sat Jun 18 02:41:04 2016
+
+
+
+** Analysis setup **
+.ac OCT 101 10 20k
+
+
+* From [PSPICE NETLIST] section of pspiceev.ini:
+.lib "nom.lib"
+
+.INC "singlecoil.net"
+.INC "singlecoil.als"
+
+
+.probe
+
+
+.END
