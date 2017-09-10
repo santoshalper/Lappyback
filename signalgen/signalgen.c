@@ -4,6 +4,7 @@
 ************************************************************/
 //control message for digital pot
 #define WRITEWIPE0 0x00
+#define WRITEWIPE1 0x10
 //inits for soft spi - needed for microc functions
 sbit SoftSpi_SDI at RB4_bit;
 sbit SoftSpi_SDO at RC7_bit;
@@ -75,10 +76,12 @@ void main() {
                if(input == 'a') {
                   if(WiperValue<128) WiperValue++;
                   set_pot(WiperValue,WRITEWIPE0);
+                  set_pot(WiperValue,WRITEWIPE1);
                }
                else if(input == 'z') {
                   if(WiperValue>0) WiperValue--;
                   set_pot(WiperValue,WRITEWIPE0);
+                  set_pot(WiperValue,WRITEWIPE1);
                 }
                else PrintAString(error);
                PrintAstring(crlf);

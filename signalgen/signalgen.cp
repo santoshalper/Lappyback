@@ -1,5 +1,5 @@
-#line 1 "C:/projects/signalgen/signalgen.c"
-#line 9 "C:/projects/signalgen/signalgen.c"
+#line 1 "C:/projects/repository/signalgen/signalgen.c"
+#line 9 "C:/projects/repository/signalgen/signalgen.c"
 sbit SoftSpi_SDI at RB4_bit;
 sbit SoftSpi_SDO at RC7_bit;
 sbit SoftSpi_CLK at RB6_bit;
@@ -60,7 +60,6 @@ void main() {
  for(a=0; a<130; a++)
  Uart1_Write('a');
  set_pot(WiperValue, 0x00 );
- set_pot(WiperValue, 0x02 );
  for(a=0; a<130; a++)
  Uart1_Write('a');
  Delay_ms(2000);
@@ -71,12 +70,12 @@ void main() {
  if(input == 'a') {
  if(WiperValue<128) WiperValue++;
  set_pot(WiperValue, 0x00 );
- set_pot(WiperValue, 0x02 );
+ set_pot(WiperValue, 0x10 );
  }
  else if(input == 'z') {
  if(WiperValue>0) WiperValue--;
  set_pot(WiperValue, 0x00 );
- set_pot(WiperValue, 0x02 );
+ set_pot(WiperValue, 0x10 );
  }
  else PrintAString(error);
  PrintAstring(crlf);

@@ -24,9 +24,8 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=2
-File0=signalgen2.c
-File1=signalgen.c
+Count=1
+File0=signalgen.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -34,15 +33,16 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=8
+Count=9
 Path0=C:\projects\Mikroelektronika\mikroC\defs\
 Path1=C:\projects\Mikroelektronika\mikroC\Uses\P16\
-Path2=C:\projects\signalgen\
-Path3=C:\Users\Public\Documents\Mikroelektronika\mikroC\defs\
-Path4=C:\Users\Public\Documents\Mikroelektronika\mikroC\Uses\P16\
-Path5=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\
-Path6=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\
-Path7=C:\Users\Vijay Natarajan\Dropbox\school\Summer2013\ECE414\project5\
+Path2=C:\projects\repository\signalgen\
+Path3=C:\projects\signalgen\
+Path4=C:\Users\Public\Documents\Mikroelektronika\mikroC\defs\
+Path5=C:\Users\Public\Documents\Mikroelektronika\mikroC\Uses\P16\
+Path6=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\
+Path7=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\
+Path8=C:\Users\Vijay Natarajan\Dropbox\school\Summer2013\ECE414\project5\
 [HEADER_PATH]
 Count=0
 [HEADERS]

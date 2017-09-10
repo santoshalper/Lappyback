@@ -1,17 +1,17 @@
-0	1	mikroCPIC1618.exe -MSF -DBG -pP16F690 -DL -O11111114 -fo4 -N"C:\projects\signalgen\signalgen.mcppi" -SP"C:\projects\Mikroelektronika\mikroC\defs\" -SP"C:\projects\Mikroelektronika\mikroC\Uses\P16\" -SP"C:\projects\signalgen\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC\Uses\P16\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" -SP"C:\Users\Vijay Natarajan\Dropbox\school\Summer2013\ECE414\project5\" "signalgen.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_MemManager.mcl" "__Lib_Conversions.mcl" "__Lib_Sprinti.mcl" "__Lib_Sprintl.mcl" "__Lib_Time.mcl" "__Lib_Trigonometry.mcl" "__Lib_Button.mcl" "__Lib_Keypad4x4.mcl" "__Lib_Manchester.mcl" "__Lib_OneWire.mcl" "__Lib_PS2.mcl" "__Lib_Sound.mcl" "__Lib_SoftI2C.mcl" "__Lib_SoftSPI.mcl" "__Lib_SoftUART.mcl" "__Lib_ADC_A_B.mcl" "__Lib_EEPROM.mcl" "__Lib_FLASH_R.mcl" "__Lib_PWM_c5.mcl" "__Lib_SPI_b64c7.mcl" "__Lib_UART_b75.mcl" "__Lib_PortExpander.mcl" "__Lib_CANSPI.mcl" "__Lib_CF.mcl" "__Lib_GlcdFonts.mcl" "__Lib_Glcd.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl" "__Lib_RS485.mcl" "__Lib_S1D13700.mcl" "__Lib_T6963C.mcl" "__Lib_SPIGlcd.mcl" "__Lib_SPILcd.mcl" "__Lib_SPILcd8.mcl" "__Lib_SPIT6963C.mcl" "__Lib_TouchPanel.mcl"	 
+0	1	mikroCPIC1618.exe -MSF -DBG -pP16F690 -DL -O11111114 -fo4 -N"C:\projects\repository\signalgen\signalgen.mcppi" -SP"C:\projects\Mikroelektronika\mikroC\defs\" -SP"C:\projects\Mikroelektronika\mikroC\Uses\P16\" -SP"C:\projects\repository\signalgen\" -SP"C:\projects\signalgen\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC\Uses\P16\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16\" -SP"C:\Users\Vijay Natarajan\Dropbox\school\Summer2013\ECE414\project5\" "signalgen.c" "__Lib_Math.mcl" "__Lib_MathDouble.mcl" "__Lib_System.mcl" "__Lib_Delays.mcl" "__Lib_CType.mcl" "__Lib_CString.mcl" "__Lib_CStdlib.mcl" "__Lib_CMath.mcl" "__Lib_MemManager.mcl" "__Lib_Conversions.mcl" "__Lib_Sprinti.mcl" "__Lib_Sprintl.mcl" "__Lib_Time.mcl" "__Lib_Trigonometry.mcl" "__Lib_Button.mcl" "__Lib_Keypad4x4.mcl" "__Lib_Manchester.mcl" "__Lib_OneWire.mcl" "__Lib_PS2.mcl" "__Lib_Sound.mcl" "__Lib_SoftI2C.mcl" "__Lib_SoftSPI.mcl" "__Lib_SoftUART.mcl" "__Lib_ADC_A_B.mcl" "__Lib_EEPROM.mcl" "__Lib_FLASH_R.mcl" "__Lib_PWM_c5.mcl" "__Lib_SPI_b64c7.mcl" "__Lib_UART_b75.mcl" "__Lib_PortExpander.mcl" "__Lib_CANSPI.mcl" "__Lib_CF.mcl" "__Lib_GlcdFonts.mcl" "__Lib_Glcd.mcl" "__Lib_LcdConsts.mcl" "__Lib_Lcd.mcl" "__Lib_RS485.mcl" "__Lib_S1D13700.mcl" "__Lib_T6963C.mcl" "__Lib_SPIGlcd.mcl" "__Lib_SPILcd.mcl" "__Lib_SPILcd8.mcl" "__Lib_SPIT6963C.mcl" "__Lib_TouchPanel.mcl"	 
 warning: 0	1501	Specified search path does not exist: 'C:\Users\Public\Documents\Mikroelektronika\mikroC\defs'	 
 warning: 0	1501	Specified search path does not exist: 'C:\Users\Public\Documents\Mikroelektronika\mikroC\Uses\P16'	 
 warning: 0	1501	Specified search path does not exist: 'C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\defs'	 
 warning: 0	1501	Specified search path does not exist: 'C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for PIC\Uses\P16'	 
 hint: 0	1139	Available RAM: 240 [bytes], Available ROM: 4096 [bytes]	 
-diagnostics: 0	126	All files Preprocessed in 203 ms	 
+diagnostics: 0	126	All files Preprocessed in 62 ms	 
 diagnostics: 0	122	Compilation Started	signalgen.c
 warning: 64	1509	Generated baud rate is 9615 bps (error = 0.16 percent)	signalgen.c
-diagnostics: 94	123	Compiled Successfully	signalgen.c
+diagnostics: 93	123	Compiled Successfully	signalgen.c
 diagnostics: 0	127	All files Compiled in 63 ms	 
 hint: 0	1144	Used RAM (bytes): 100 (42%)  Free RAM (bytes): 140 (58%)	Used RAM (bytes): 100 (42%)  Free RAM (bytes): 140 (58%)
-hint: 0	1144	Used ROM (program words): 662 (16%)  Free ROM (program words): 3434 (84%)	Used ROM (program words): 662 (16%)  Free ROM (program words): 3434 (84%)
+hint: 0	1144	Used ROM (program words): 649 (16%)  Free ROM (program words): 3447 (84%)	Used ROM (program words): 649 (16%)  Free ROM (program words): 3447 (84%)
 diagnostics: 0	125	Project Linked Successfully	signalgen.mcppi
-diagnostics: 0	128	Linked in 297 ms	 
-diagnostics: 0	129	Project 'signalgen.mcppi' completed: 625 ms	 
-diagnostics: 0	103	Finished successfully: 11 Jul 2017, 18:11:33	signalgen.mcppi
+diagnostics: 0	128	Linked in 125 ms	 
+diagnostics: 0	129	Project 'signalgen.mcppi' completed: 297 ms	 
+diagnostics: 0	103	Finished successfully: 09 Sep 2017, 13:52:19	signalgen.mcppi

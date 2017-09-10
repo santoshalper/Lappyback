@@ -684,17 +684,7 @@ L_main25:
 	CLRF       FARG_set_pot_control+0
 	CLRF       FARG_set_pot_control+1
 	CALL       _set_pot+0
-;signalgen.c,69 :: 		set_pot(WiperValue,WRITEWIPE1);
-	MOVF       _WiperValue+0, 0
-	MOVWF      FARG_set_pot_value+0
-	MOVF       _WiperValue+1, 0
-	MOVWF      FARG_set_pot_value+1
-	MOVLW      2
-	MOVWF      FARG_set_pot_control+0
-	MOVLW      0
-	MOVWF      FARG_set_pot_control+1
-	CALL       _set_pot+0
-;signalgen.c,70 :: 		for(a=0;  a<130; a++)
+;signalgen.c,69 :: 		for(a=0;  a<130; a++)
 	CLRF       main_a_L0+0
 	CLRF       main_a_L0+1
 L_main27:
@@ -710,18 +700,18 @@ L_main27:
 L__main57:
 	BTFSC      STATUS+0, 0
 	GOTO       L_main28
-;signalgen.c,71 :: 		Uart1_Write('a');
+;signalgen.c,70 :: 		Uart1_Write('a');
 	MOVLW      97
 	MOVWF      FARG_UART1_Write_data_+0
 	CALL       _UART1_Write+0
-;signalgen.c,70 :: 		for(a=0;  a<130; a++)
+;signalgen.c,69 :: 		for(a=0;  a<130; a++)
 	INCF       main_a_L0+0, 1
 	BTFSC      STATUS+0, 2
 	INCF       main_a_L0+1, 1
-;signalgen.c,71 :: 		Uart1_Write('a');
+;signalgen.c,70 :: 		Uart1_Write('a');
 	GOTO       L_main27
 L_main28:
-;signalgen.c,72 :: 		Delay_ms(2000);
+;signalgen.c,71 :: 		Delay_ms(2000);
 	MOVLW      11
 	MOVWF      R11+0
 	MOVLW      38
@@ -737,13 +727,13 @@ L_main30:
 	GOTO       L_main30
 	NOP
 	NOP
-;signalgen.c,73 :: 		while(1){
+;signalgen.c,72 :: 		while(1){
 L_main31:
-;signalgen.c,74 :: 		PrintAString(prompt);
+;signalgen.c,73 :: 		PrintAString(prompt);
 	MOVLW      _prompt+0
 	MOVWF      FARG_PrintAString_string+0
 	CALL       _PrintAString+0
-;signalgen.c,75 :: 		while(!Uart1_Data_Ready());
+;signalgen.c,74 :: 		while(!Uart1_Data_Ready());
 L_main33:
 	CALL       _UART1_Data_Ready+0
 	MOVF       R0+0, 0
@@ -751,16 +741,16 @@ L_main33:
 	GOTO       L_main34
 	GOTO       L_main33
 L_main34:
-;signalgen.c,76 :: 		input = Uart1_Read();
+;signalgen.c,75 :: 		input = Uart1_Read();
 	CALL       _UART1_Read+0
 	MOVF       R0+0, 0
 	MOVWF      main_input_L0+0
-;signalgen.c,77 :: 		if(input == 'a') {
+;signalgen.c,76 :: 		if(input == 'a') {
 	MOVF       R0+0, 0
 	XORLW      97
 	BTFSS      STATUS+0, 2
 	GOTO       L_main35
-;signalgen.c,78 :: 		if(WiperValue<128) WiperValue++;
+;signalgen.c,77 :: 		if(WiperValue<128) WiperValue++;
 	MOVLW      128
 	XORWF      _WiperValue+1, 0
 	MOVWF      R0+0
@@ -777,7 +767,7 @@ L__main58:
 	BTFSC      STATUS+0, 2
 	INCF       _WiperValue+1, 1
 L_main36:
-;signalgen.c,79 :: 		set_pot(WiperValue,WRITEWIPE0);
+;signalgen.c,78 :: 		set_pot(WiperValue,WRITEWIPE0);
 	MOVF       _WiperValue+0, 0
 	MOVWF      FARG_set_pot_value+0
 	MOVF       _WiperValue+1, 0
@@ -785,25 +775,25 @@ L_main36:
 	CLRF       FARG_set_pot_control+0
 	CLRF       FARG_set_pot_control+1
 	CALL       _set_pot+0
-;signalgen.c,80 :: 		set_pot(WiperValue,WRITEWIPE1);
+;signalgen.c,79 :: 		set_pot(WiperValue,WRITEWIPE1);
 	MOVF       _WiperValue+0, 0
 	MOVWF      FARG_set_pot_value+0
 	MOVF       _WiperValue+1, 0
 	MOVWF      FARG_set_pot_value+1
-	MOVLW      2
+	MOVLW      16
 	MOVWF      FARG_set_pot_control+0
 	MOVLW      0
 	MOVWF      FARG_set_pot_control+1
 	CALL       _set_pot+0
-;signalgen.c,81 :: 		}
+;signalgen.c,80 :: 		}
 	GOTO       L_main37
 L_main35:
-;signalgen.c,82 :: 		else if(input == 'z') {
+;signalgen.c,81 :: 		else if(input == 'z') {
 	MOVF       main_input_L0+0, 0
 	XORLW      122
 	BTFSS      STATUS+0, 2
 	GOTO       L_main38
-;signalgen.c,83 :: 		if(WiperValue>0) WiperValue--;
+;signalgen.c,82 :: 		if(WiperValue>0) WiperValue--;
 	MOVLW      128
 	MOVWF      R0+0
 	MOVLW      128
@@ -821,7 +811,7 @@ L__main59:
 	BTFSS      STATUS+0, 0
 	DECF       _WiperValue+1, 1
 L_main39:
-;signalgen.c,84 :: 		set_pot(WiperValue,WRITEWIPE0);
+;signalgen.c,83 :: 		set_pot(WiperValue,WRITEWIPE0);
 	MOVF       _WiperValue+0, 0
 	MOVWF      FARG_set_pot_value+0
 	MOVF       _WiperValue+1, 0
@@ -829,34 +819,34 @@ L_main39:
 	CLRF       FARG_set_pot_control+0
 	CLRF       FARG_set_pot_control+1
 	CALL       _set_pot+0
-;signalgen.c,85 :: 		set_pot(WiperValue,WRITEWIPE1);
+;signalgen.c,84 :: 		set_pot(WiperValue,WRITEWIPE1);
 	MOVF       _WiperValue+0, 0
 	MOVWF      FARG_set_pot_value+0
 	MOVF       _WiperValue+1, 0
 	MOVWF      FARG_set_pot_value+1
-	MOVLW      2
+	MOVLW      16
 	MOVWF      FARG_set_pot_control+0
 	MOVLW      0
 	MOVWF      FARG_set_pot_control+1
 	CALL       _set_pot+0
-;signalgen.c,86 :: 		}
+;signalgen.c,85 :: 		}
 	GOTO       L_main40
 L_main38:
-;signalgen.c,87 :: 		else PrintAString(error);
+;signalgen.c,86 :: 		else PrintAString(error);
 	MOVLW      _error+0
 	MOVWF      FARG_PrintAString_string+0
 	CALL       _PrintAString+0
 L_main40:
 L_main37:
-;signalgen.c,88 :: 		PrintAstring(crlf);
+;signalgen.c,87 :: 		PrintAstring(crlf);
 	MOVLW      _crlf+0
 	MOVWF      FARG_PrintAString_string+0
 	CALL       _PrintAString+0
-;signalgen.c,89 :: 		PrintAstring(freqValue);
+;signalgen.c,88 :: 		PrintAstring(freqValue);
 	MOVLW      _freqValue+0
 	MOVWF      FARG_PrintAString_string+0
 	CALL       _PrintAString+0
-;signalgen.c,90 :: 		InttoStr(WiperValue,temp);
+;signalgen.c,89 :: 		InttoStr(WiperValue,temp);
 	MOVF       _WiperValue+0, 0
 	MOVWF      FARG_IntToStr_input+0
 	MOVF       _WiperValue+1, 0
@@ -864,17 +854,17 @@ L_main37:
 	MOVLW      _temp+0
 	MOVWF      FARG_IntToStr_output+0
 	CALL       _IntToStr+0
-;signalgen.c,91 :: 		PrintAString(temp);
+;signalgen.c,90 :: 		PrintAString(temp);
 	MOVLW      _temp+0
 	MOVWF      FARG_PrintAString_string+0
 	CALL       _PrintAString+0
-;signalgen.c,92 :: 		PrintAstring(crlf);
+;signalgen.c,91 :: 		PrintAstring(crlf);
 	MOVLW      _crlf+0
 	MOVWF      FARG_PrintAString_string+0
 	CALL       _PrintAString+0
-;signalgen.c,93 :: 		}
+;signalgen.c,92 :: 		}
 	GOTO       L_main31
-;signalgen.c,94 :: 		}
+;signalgen.c,93 :: 		}
 L_end_main:
 	GOTO       $+0
 ; end of _main
