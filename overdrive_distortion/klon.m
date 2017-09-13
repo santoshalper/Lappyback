@@ -1,0 +1,53 @@
+pkg load signal
+pkg load symbolic
+r1 = 100; %input("klon r1:");%klon resistor 1
+r2 = 100; %input("klon r2:");%klon resistor 1
+r3 = 100; %input("klon r3:");%klon resistor 1
+r4 = 100; %input("klon r4:");%klon resistor 1
+r5 = 100; %input("klon r5:");%klon resistor 1
+r6 = 100; %input("klon r6:");%klon resistor 1
+r7 = 100; %input("klon r7:");%klon resistor 1
+r8 = 100; %input("klon r8:");%klon resistor 1
+r9 = 100; %input("klon r9:");%klon resistor 1
+r10= 100; %input("klon r10:");%klon resistor 1
+r11= 100; %input("klon r11:");%klon resistor 1
+r12= 100; %input("klon r12:");%klon resistor 1
+r13= 100; %input("klon r13:");%klon resistor 1
+r14= 100; %input("klon r14:");%klon resistor 1
+r15= 100; %input("klon r15:");%klon resistor 1
+r16= 100; %input("klon r16:");%klon resistor 1
+r17= 100; %input("klon r17:");%klon resistor 1
+r18= 100; %input("klon r18:");%klon resistor 1
+rg = 100; %input("klon rgain:");%klon resistor gain control max
+rt = 100; %input("klon rtreble:");%klon resistor Treble control max
+c1 = 9; %input("klon c1:");
+c2 = 9; %input("klon c2:");
+c3 = 9; %input("klon c3:");
+c4 = 9; %input("klon c4:");
+c5 = 9; %input("klon c5:");
+c6 = 9; %input("klon c6:");
+c7 = 9; %input("klon c7:");
+c8 = 9; %input("klon c8:");
+c9 = 9; %input("klon c9:");
+c10= 9; %input("klon c10:");
+c11= 9; %input("klon c11:");
+ccl= 9; %input("klon cclip:");
+cst= 9; %input("klon csat:");
+
+z1b = [r1];
+z1a = [1 c2*r1];
+z2b = [r2+r3 c3*r3*r2];
+z2a = [1 c3*r3];
+z3b = [r4];
+z3a = [1 c4*r4];
+z5b = [r5]
+z5a = [1 c5*r5];
+z6b = [r6 c6*r6*r7];
+z6a = [1 c6(r6+r7)];
+z7b = [r11];
+z7a = [1 c8*r11];
+z8b = [1 c7*r8];
+z8a = [0 c7]
+z9b = [r10 c11*r10*r18];
+z9a = [1 c11(r10+r18)];
+
