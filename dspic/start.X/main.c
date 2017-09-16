@@ -8,29 +8,89 @@
 
 #include "xc.h"
 
-int main(void) {
-    TRISA = 0x0000;
-    TRISB = 0x1000; // Rb12 set to input to be analog in. 
-    TRISC = 0x0000;
-    TRISD = 0x0000;
-    TRISF = 0x0000;
+// DSPIC30F3014 Configuration Bit Settings
+// 'C' source line config statements
+// FOSC
+#pragma config FOSFPR = FRC_PLL16       // Oscillator (Internal Fast RC (No change to Primary Osc Mode bits))
+#pragma config FCKSMEN = CSW_FSCM_OFF   // Clock Switching and Monitor (Sw Disabled, Mon Disabled)
+// FWDT
+#pragma config FWPSB = WDTPSB_16        // WDT Prescaler B (1:16)
+#pragma config FWPSA = WDTPSA_512       // WDT Prescaler A (1:512)
+#pragma config WDT = WDT_OFF             // Watchdog Timer (Enabled)
+// FBORPOR
+#pragma config FPWRT = PWRT_64          // POR Timer Value (64ms)
+#pragma config BODENV = BORV20          // Brown Out Voltage (Reserved)
+#pragma config BOREN = PBOR_ON          // PBOR Enable (Enabled)
+#pragma config MCLRE = MCLR_EN          // Master Clear Enable (Enabled)
+// FGS
+#pragma config GWRP = GWRP_OFF          // General Code Segment Write Protect (Disabled)
+#pragma config GCP = CODE_PROT_OFF      // General Segment Code Protection (Disabled)
+// FICD
+#pragma config ICS = ICS_PGD            // Comm Channel Select (Use PGC/EMUC and PGD/EMUD)
+// #pragma config statements should precede project file includes.
+// Use project enums instead of #define for ON and OFF.
 
+void inita2d(void);
+void initInt(void);
+
+void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
+	while(!(ADCON1&&0x0001));
+	IFS0 &= 0xF7FF;
+}
+
+int main(void) {
+
+    PMD1 = 0xFFFF;
+    PMD2 = 0xFFFF;
+
+    inita2d();
+      
+    while (1) {
+    }
+    return 0;
+}
+
+//LIMIT 16 DONT FUCK UP 
+#define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
+#define NoB 1
+//
+
+void inita2d(void) {
+
+    PMD1  &= 0xFFFD; //turn on a2d
+    TRISA |= 0x0000;
+    TRISB |= 0x1000; // Rb12/AN12 set to input  
+    TRISC |= 0x0000;
+    TRISD |= 0x0000;
+    TRISF |= 0x0000;
+
+    ADCON1 = 0x0000; //ADON = 0    
+
+    ADCON1 = 0x00E4; //Auto sampling/Auto Conversion;
+    ADCON2 = 0x0000;
+    NUMoBUF(NoB);
+    ADCON3 = 0x0129; //set sampling rate to 95Khz
+    ADCHS  = 0x000c; //Assign AN12 to chanel A
+    ADPCFG = 0x1000; //RB12/AN12 set to analog in
+    ADCSSL = 0x0000; //Not Doing Scan In. 	
+
+//Clear I/O ports pre activation
     PORTA = 0x0000;
     PORTB = 0x0000;
     PORTC = 0x0000;
     PORTD = 0x0000;
     PORTF = 0x0000;
 
-    PMD1 = 0xFFFF;
-    PMD2 = 0xFFFF;
-       
-    while (1) {
-    }
-    return 0;
+    initInt();
+	
+    ADCON1 |= 0x8000; //turn on adc
+
+}     
+
+void initInt() {
+     IPC2 = 0X6000; 
+     IEC0 = 0x0800; //adc int set
 }
-
-
-
 
 
 

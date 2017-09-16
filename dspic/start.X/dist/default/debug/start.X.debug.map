@@ -1,30 +1,26 @@
-Microchip Technology Inc, v1.31 (A)
+Microchip Technology Inc, v1.32 (B)
 
 Tool Name:
-  c:\program files (x86)\microchip\xc16\v1.31\bin\bin\..\bin/elf-ld.exe
+  /home/vijay/prgms/xc16/bin/bin/../bin/elf-ld
 
 Command:
   -p30F3014 \
   -o \
   dist/default/debug/start.X.debug.elf \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/.. \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/PIC24E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/PIC24F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/PIC24H/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/dsPIC30F/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/dsPIC33E/gld \
-  -Lc:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../support/dsPIC33F/gld \
+  -L/home/vijay/prgms/xc16/bin/bin/.. \
+  -L/home/vijay/prgms/xc16/bin/bin/../../lib \
+  -L/home/vijay/prgms/xc16/bin/bin/../../support/PIC24E/gld \
+  -L/home/vijay/prgms/xc16/bin/bin/../../support/PIC24F/gld \
+  -L/home/vijay/prgms/xc16/bin/bin/../../support/PIC24H/gld \
+  -L/home/vijay/prgms/xc16/bin/bin/../../support/dsPIC30F/gld \
+  -L/home/vijay/prgms/xc16/bin/bin/../../support/dsPIC33E/gld \
+  -L/home/vijay/prgms/xc16/bin/bin/../../support/dsPIC33F/gld \
   build/default/debug/main.o \
-  -TC:\\Users\\VIJAYN~1\\AppData\\Local\\Temp\\tmp00000568.00 \
-  -TC:\\Users\\VIJAYN~1\\AppData\\Local\\Temp\\tmp00000568.01 \
-  -TC:\\Users\\VIJAYN~1\\AppData\\Local\\Temp\\tmp00000568.02 \
-  -TC:\\Users\\VIJAYN~1\\AppData\\Local\\Temp\\tmp00000568.03 \
   --defsym=__MPLAB_BUILD=1 \
   --defsym=__MPLAB_DEBUG=1 \
   --defsym=__DEBUG=1 \
-  --defsym=__MPLAB_DEBUGGER_PK3=1 \
-  -Tp30F3014.gld.04 \
+  --defsym=__MPLAB_DEBUGGER_SIMULATOR=1 \
+  -Tp30F3014.gld.00 \
   --stack=16 \
   --check-sections \
   --data-init \
@@ -50,24 +46,44 @@ Command:
 Optional library libp30F3014.a not found
 Archive member included because of file (symbol)
 
-c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+/home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
                               (__resetPRI)
-c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
-                              c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
-c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+/home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
+                              /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
+/home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(crt_start_mode_normal.Leo)
                               (__crt_start_mode_normal)
 
 
-xc16-ld 1.31 (A)
+Selected CodeGuard Options:
+  FGS:GWRP:GWRP_OFF
+  FGS:GCP:CODE_PROT_OFF
+
+CodeGuard FLASH Memory:
+  boot    (none)
+  secure  (none)
+  general 0x100 to 0x3ffe
+
+CodeGuard RAM Memory:
+  general 0x800 to 0xfff
+  secure  (none)
+  boot    (none)
+
+CodeGuard EEPROM Memory:
+  general 0x7ffc00 to 0x7fffff
+  secure  (none)
+  boot    (none)
+
+
+xc16-ld 1.32 (B)
 
 Program Memory  [Origin = 0x100, Length = 0x3f00]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x100                0xce           0x135  (309)
-.text                        0x1ce                0xda           0x147  (327)
+.text                        0x1ce                0x22            0x33  (51)
 
-                 Total program memory used (bytes):          0x27c  (636) 2%
+                 Total program memory used (bytes):          0x168  (360) 1%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x7c]
@@ -80,12 +96,8 @@ Data Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-reserve_data_0x800           0x800                0x20            0x20  (32)
-reserve_data_0x820           0x820                 0x2             0x2  (2)
-reserve_data_0x822           0x822                 0x2             0x2  (2)
-reserve_data_0x824           0x824                0x2c            0x2c  (44)
 
-                 Total data memory used (bytes):           0x50  (80) 3%
+                 Total data memory used (bytes):              0  (0) 
 
 
 Dynamic Memory Usage
@@ -93,23 +105,25 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x850                               0x7b0  (1968)
+stack                        0x800                               0x800  (2048)
 
-                 Maximum dynamic memory (bytes):          0x7b0  (1968)
+                 Maximum dynamic memory (bytes):          0x800  (2048)
 
 
 External Symbols in Program Memory (by address):
 
                   0x000100                  __resetPRI
                   0x00013c                  __psv_init
-                  0x000152                  __data_init_standard
                   0x000152                  __data_init
+                  0x000152                  __data_init_standard
                   0x0001c8                  __DefaultInterrupt
                   0x0001ce                  _main
+                  0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
                   0x0001c8                  __DefaultInterrupt
+                  0xf8000a                  __FGS.sec
                   0x000152                  __data_init
                   0x000152                  __data_init_standard
                   0x00013c                  __psv_init
@@ -142,32 +156,12 @@ FICD             0xf8000c           0x000002
 Linker script and memory map
 
 LOAD build/default/debug/main.o
-
-reserve_data_0x800
-                    0x0800         0x20
-                    0x0820                  . = 0x20
- *fill*             0x0800         0x2000
-
-reserve_data_0x820
-                    0x0820          0x2
-                    0x0822                  . = 0x2
- *fill*             0x0820          0x200
-
-reserve_data_0x822
-                    0x0822          0x2
-                    0x0824                  . = 0x2
- *fill*             0x0822          0x200
-
-reserve_data_0x824
-                    0x0824         0x2c
-                    0x0850                  . = 0x2c
- *fill*             0x0824         0x2c00
                     0x0001                  __MPLAB_BUILD = 0x1
                     0x0001                  __MPLAB_DEBUG = 0x1
                     0x0001                  __DEBUG = 0x1
-                    0x0001                  __MPLAB_DEBUGGER_PK3 = 0x1
+                    0x0001                  __MPLAB_DEBUGGER_SIMULATOR = 0x1
 LOAD p30F3014
-LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
+LOAD /home/vijay/prgms/xc16/bin/bin/../../lib/libfx-elf.a
                     0x8005c0                  __FUID0 = 0x8005c0
                     0x8005c2                  __FUID1 = 0x8005c2
                     0x8005c4                  __FUID2 = 0x8005c4
@@ -196,13 +190,13 @@ LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
 
 .text             0x000100         0xce
  *(.init)
- .init            0x000100         0x4c c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
-                  0x000100                  __resetPRI
+ .init            0x000100         0x4c /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
                   0x000100                  __reset
+                  0x000100                  __resetPRI
                   0x00013c                  __psv_init
- .init            0x00014c         0x7c c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
-                  0x000152                  __data_init_standard
+ .init            0x00014c         0x7c /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
                   0x000152                  __data_init
+                  0x000152                  __data_init_standard
  *(.user_init)
  *(.handle)
  *(.isr*)
@@ -213,9 +207,9 @@ LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0001cc          0x2 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
-                  0x0001cc                  __crt_start_mode
+                  0x0001cc          0x2 /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(crt_start_mode_normal.Leo)
                   0x0001cc                  __crt_start_mode_normal
+                  0x0001cc                  __crt_start_mode
 
 usercode
  *(usercode)
@@ -247,8 +241,10 @@ __RESERVED1
 __RESERVED2
  *(__RESERVED2.sec*)
 
-__FGS
+__FGS             0xf8000a          0x2
  *(__FGS.sec*)
+ __FGS.sec        0xf8000a          0x2 FGS
+                  0xf8000a                  __FGS.sec
 
 __FICD
  *(__FICD.sec*)
@@ -262,26 +258,22 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x358
+.debug_info       0x000000        0x24c
  *(.debug_info)
- .debug_info      0x000000        0x358 build/default/debug/main.o
+ .debug_info      0x000000        0x24c build/default/debug/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000         0xa1
+.debug_abbrev     0x000000         0x4e
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0xa1 build/default/debug/main.o
+ .debug_abbrev    0x000000         0x4e build/default/debug/main.o
 
-.debug_line       0x000000         0xc4
+.debug_line       0x000000         0x88
  *(.debug_line)
- .debug_line      0x000000         0xc4 build/default/debug/main.o
+ .debug_line      0x000000         0x88 build/default/debug/main.o
 
 .debug_frame      0x000000         0x30
  *(.debug_frame)
  .debug_frame     0x000000         0x30 build/default/debug/main.o
-
-.debug_str        0x000000          0xa
- *(.debug_str)
- .debug_str       0x000000          0xa build/default/debug/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -698,27 +690,42 @@ userdata
                     0x0216                  UART2 = 0x216
                     0x0216                  _UART2 = 0x216
 START GROUP
-LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libm-elf.a
-LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a
+LOAD /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a
+LOAD /home/vijay/prgms/xc16/bin/bin/../../lib/libm-elf.a
+LOAD /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-c-elf.a
 END GROUP
 OUTPUT(dist/default/debug/start.X.debug.elf elf32-pic30)
+LOAD FGS
 LOAD default_isr
 
 .debug_pubtypes
-                  0x000018         0x31
+                  0x000018         0x12
  .debug_pubtypes
-                  0x000018         0x31 build/default/debug/main.o
+                  0x000018         0x12 build/default/debug/main.o
 
 __c30_signature
-                  0x000049         0x12
+                  0x00002a         0x12
  __c30_signature
-                  0x000049          0x6 build/default/debug/main.o
+                  0x00002a          0x6 build/default/debug/main.o
  __c30_signature
-                  0x00004f          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+                  0x000030          0x6 /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000055          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x000036          0x6 /home/vijay/prgms/xc16/bin/bin/../../lib/liblega-pic30-elf.a(data_init_standard.o)
 
-.text             0x0001ce         0xda
- .text            0x0001ce         0xda build/default/debug/main.o
+.config_ICS       0xf8000c          0x2
+ .config_ICS      0xf8000c          0x2 build/default/debug/main.o
+
+.config_MCLRE     0xf80004          0x2
+ .config_MCLRE    0xf80004          0x2 build/default/debug/main.o
+
+.config_WDT       0xf80002          0x2
+ .config_WDT      0xf80002          0x2 build/default/debug/main.o
+
+.config_FCKSMEN
+                  0xf80000          0x2
+ .config_FCKSMEN
+                  0xf80000          0x2 build/default/debug/main.o
+
+.text             0x0001ce         0x22
+ .text            0x0001ce         0x22 build/default/debug/main.o
                   0x0001ce                  _main

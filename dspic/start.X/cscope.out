@@ -1,0 +1,171 @@
+cscope 15 $HOME/repos/Lappyback/dspic/start.X               0000000869
+	@main.c
+
+9 
+	~"xc.h
+"
+
+11 
+	$maš
+() {
+
+15 #´agm¨
+cÚfig
+ 
+FOSFPR
+ = 
+FRC
+
+
+16 #´agm¨
+cÚfig
+ 
+FCKSMEN
+ = 
+CSW_FSCM_OFF
+
+
+19 #´agm¨
+cÚfig
+ 
+FWPSB
+ = 
+WDTPSB_16
+
+
+20 #´agm¨
+cÚfig
+ 
+FWPSA
+ = 
+WDTPSA_512
+
+
+21 #´agm¨
+cÚfig
+ 
+WDT
+ = 
+WDT_ON
+
+
+24 #´agm¨
+cÚfig
+ 
+FPWRT
+ = 
+PWRT_64
+
+
+25 #´agm¨
+cÚfig
+ 
+BODENV
+ = 
+BORV20
+
+
+26 #´agm¨
+cÚfig
+ 
+BOREN
+ = 
+PBOR_ON
+
+
+27 #´agm¨
+cÚfig
+ 
+MCLRE
+ = 
+MCLR_EN
+
+
+30 #´agm¨
+cÚfig
+ 
+GWRP
+ = 
+GWRP_OFF
+
+
+31 #´agm¨
+cÚfig
+ 
+GCP
+ = 
+CODE_PROT_OFF
+
+
+34 #´agm¨
+cÚfig
+ 
+ICS
+ = 
+ICS_PGD
+
+
+39 
+	~<xc.h
+>
+
+41 
+TRISA
+ = 0x0000;
+
+42 
+TRISB
+ = 0x1000;
+
+43 
+TRISC
+ = 0x0000;
+
+44 
+TRISD
+ = 0x0000;
+
+45 
+TRISF
+ = 0x0000;
+
+47 
+PORTA
+ = 0x0000;
+
+48 
+PORTB
+ = 0x0000;
+
+49 
+PORTC
+ = 0x0000;
+
+50 
+PORTD
+ = 0x0000;
+
+51 
+PORTF
+ = 0x0000;
+
+53 
+PMD1
+ = 0xFFFF;
+
+54 
+PMD2
+ = 0xFFFF;
+
+59 
+	}
+}
+
+	@
+1
+.
+1
+/usr/include
+1
+7
+main.c
