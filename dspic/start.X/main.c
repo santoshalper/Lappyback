@@ -8,6 +8,11 @@
 
 #include "xc.h"
 
+//LIMIT 16 DONT FUCK UP 
+#define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
+#define NoB 15
+//
+
 // DSPIC30F3014 Configuration Bit Settings
 // 'C' source line config statements
 // FOSC
@@ -31,38 +36,49 @@
 // Use project enums instead of #define for ON and OFF.
 
 void inita2d(void);
-void initInt(void);
+void initIntA2d(void);
+
+int x[NoB];
 
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
 	while(!(ADCON1&&0x0001));
+    for(int i=0; i<NoB; i++)
+        x[i] = *((&ADCBUF0) + i);
+    PORTD ^= 0x0001;
+    
+    
 	IFS0 &= 0xF7FF;
 }
 
 int main(void) {
-
-    PMD1 = 0xFFFF;
-    PMD2 = 0xFFFF;
+    int m=0;
+//set all i/o to digital
+    TRISA = 0x0000;
+    TRISB = 0x0000;
+    TRISC = 0x0000;
+    TRISD = 0x0000;
+    TRISF = 0x0000;
+    
+    PORTA = 0x0000;
+    PORTB = 0x0000;
+    PORTC = 0x0000;
+    PORTD = 0x0000;
+    PORTF = 0x0000;
 
     inita2d();
       
     while (1) {
+        while (m<10) m++;
+        m = 0;
+        PORTC ^= 0x8000;
     }
     return 0;
 }
 
-//LIMIT 16 DONT FUCK UP 
-#define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
-#define NoB 1
-//
 
 void inita2d(void) {
 
-    PMD1  &= 0xFFFD; //turn on a2d
-    TRISA |= 0x0000;
     TRISB |= 0x1000; // Rb12/AN12 set to input  
-    TRISC |= 0x0000;
-    TRISD |= 0x0000;
-    TRISF |= 0x0000;
 
     ADCON1 = 0x0000; //ADON = 0    
 
@@ -71,23 +87,16 @@ void inita2d(void) {
     NUMoBUF(NoB);
     ADCON3 = 0x0129; //set sampling rate to 95Khz
     ADCHS  = 0x000c; //Assign AN12 to chanel A
-    ADPCFG = 0x1000; //RB12/AN12 set to analog in
+    ADPCFG = 0x0FFF; //RB12/AN12 set to analog in
     ADCSSL = 0x0000; //Not Doing Scan In. 	
 
 //Clear I/O ports pre activation
-    PORTA = 0x0000;
     PORTB = 0x0000;
-    PORTC = 0x0000;
-    PORTD = 0x0000;
-    PORTF = 0x0000;
-
-    initInt();
-	
+    initIntA2d();
     ADCON1 |= 0x8000; //turn on adc
-
 }     
 
-void initInt() {
+void initIntA2d() {
      IPC2 = 0X6000; 
      IEC0 = 0x0800; //adc int set
 }
