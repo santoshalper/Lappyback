@@ -1,0 +1,7 @@
+#!/bin/bash
+FIL=$1
+FIL="${FIL%.*}"
+RAW="$FIL".raw
+LOG="$FIL".log
+sudo ngspice -b -r"$RAW" -o"$LOG" "$1"
+sudo gaw "$RAW" &
