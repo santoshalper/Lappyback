@@ -1,9 +1,9 @@
 example lowpass
 .model DMOD D(vj=1.7)
-r1 1 2 ~R1
-c1 2 0 ~C1
-r2 2 0 ~R2
-v2 1 0 ac sin(0 2.5 440);
+r1 1 2 2.2k
+c1 2 0 .1u
+r2 2 0 100k
+v2 1 0 dc 4.5 ac sin(0 2.5 440);
 .option noacct
 .tran .05m 7m
 .ac oct 15 20 20k

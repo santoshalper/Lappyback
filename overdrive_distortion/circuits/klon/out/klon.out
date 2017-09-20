@@ -1,0 +1,20 @@
+klon circuit analysis
+.include ../include/opamp/opamp.mod
+
+Vpr 1 0	dc 9
+Vbu 2 0 dc 4.5
+Vdb 3 0 dc 18
+
+
+vin 4 0 ac 1 sin(0 330m 440)
+
+r1  4 5 10k
+C1  5 6 100n
+r2  6 2 100Meg
+
+x1 6 7 1 0 7 OPAMPMODH
+
+.option acct
+.tran .05m 7m
+.ac oct 15 18 22k
+.end 

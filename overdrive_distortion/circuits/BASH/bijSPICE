@@ -1,0 +1,25 @@
+#!/bin/bash
+mkdir -p out/
+FIL=$1
+FIL="${FIL%.*}"
+TMP=out/"$FIL".out
+RAW=out/"$FIL".raw
+LOG=out/"$FIL".log
+NoR=$(grep -c ~R "$1")
+NoC=$(grep -c ~C "$1")
+Rc=1
+Cc=1
+cp "$1" "$TMP"
+while [ $Rc -le $NoR ]; do
+	read -p"resistor R$Rc: " val
+	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
+	let Rc=Rc+1
+done
+while [ $Cc -le $NoC ]; do
+	read -p"capacitor C$Cc: " val
+	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
+	let Cc=Cc+1
+done
+
+sudo ngspice -b -r"$RAW" -o"$LOG" "$TMP"
+sudo gaw "$RAW" &
