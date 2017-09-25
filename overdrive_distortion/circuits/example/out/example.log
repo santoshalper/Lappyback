@@ -1,12 +1,14 @@
 
-Circuit: example lowpass
+Circuit: example active lowpass amp
 
+Reducing trtol to 1 for xspice 'A' devices
 Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
 
-No. of Data Columns : 4  
+Warning: vsi: no DC value, transient time 0 value used
+No. of Data Columns : 3  
 
 No. of Data Rows : 150
-No. of Data Columns : 4  
+No. of Data Columns : 3  
 
-No. of Data Rows : 152
+No. of Data Rows : 608
 

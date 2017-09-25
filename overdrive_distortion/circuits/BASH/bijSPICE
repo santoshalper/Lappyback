@@ -7,19 +7,72 @@ RAW=out/"$FIL".raw
 LOG=out/"$FIL".log
 NoR=$(grep -c ~R "$1")
 NoC=$(grep -c ~C "$1")
+Nsel=$(grep -c ~Ns "$1")
 Rc=1
 Cc=1
 cp "$1" "$TMP"
+
+if [ ! -z "$2" ]
+then
+while [ $Rc -le $NoR ]; do
+        val=$(grep 'R'"$Rc"' ' "$2" | awk '{print $2}')
+	if [ ! -z "$val" ]; then
+	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
+	else
+        read -p"Resistor R$Rc: " val
+	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
+	fi
+	let Rc=Rc+1
+done
+let Rc=1
+NoR=$(grep -c ~R "$TMP")
+let New=1
+while [ $Cc -le $NoC ]; do
+        val=$(grep 'C'"$Cc"' ' "$2" | awk '{print $2}')
+	if [ ! -z "$val" ]; then
+	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
+	else
+       	read -p"capacitor C$Cc: " val
+	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
+	fi
+	let Cc=Cc+1
+done
+else
 while [ $Rc -le $NoR ]; do
 	read -p"resistor R$Rc: " val
 	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
 	let Rc=Rc+1
 done
+
 while [ $Cc -le $NoC ]; do
 	read -p"capacitor C$Cc: " val
 	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
 	let Cc=Cc+1
 done
+fi
 
+if [ $Nsel -eq 1 ]
+then
+Nc=1
+   read -p"number of nodes to test: " nl
+      if [ $nl -ge $Nc ] 
+      then
+       while [ $Nc -le $nl ] 
+	do
+	read -p"test node $Nc: " val
+        echo ".save v($val)" >> nodes.txt
+        let Nc=Nc+1;
+       done
+       sed -i -e '/~Ns/r nodes.txt' "$TMP"
+       rm nodes.txt
+       fi	
+    sed -i -e '/~Ns/d' "$TMP"
+fi
 sudo ngspice -b -r"$RAW" -o"$LOG" "$TMP"
-sudo gaw "$RAW" &
+if [ $? -eq 0 ]
+then 
+ sudo gaw "$RAW" &
+else
+ echo "ngspice failure"
+ vi "$LOG"
+fi

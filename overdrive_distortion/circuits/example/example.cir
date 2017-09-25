@@ -1,10 +1,18 @@
-example lowpass
-.model DMOD D(vj=1.7)
-r1 1 2 ~R1
-c1 2 0 ~C1
-r2 2 0 ~R2
-v2 1 0 ac sin(0 2.5 440);
+example active lowpass amp
+.include ../include/opamp/TL072.mod
+vpr 1 0 9
+vbu 2 0 -9
+vsi 3 0 ac pulse(-1 1 0 2n 2n 1m 2m);
+rin 4 0 ~R1
+x1  3 4 1 2 5 TL072
+cfe 5 4 ~C1
+rfe 5 4 ~R2
+rlo 5 0 1Meg
 .option noacct
 .tran .05m 7m
 .ac oct 15 20 20k
+let loop = 1;
+.save v(3)
+.save v(5)
+~Ns
 .end

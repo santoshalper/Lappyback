@@ -1,20 +1,84 @@
 klon circuit analysis
-.include ../include/opamp/opamp.mod
+.include ../include/opamp/TL072.mod
+.model 1N34A D(bv=75 cjo=0.5e-12 eg=0.67 ibv=18e-3 is=2e-7 rs=7 n=1.3 vj =0.1 m=0.27)
+Vpr  1  0 dc 9
+Vbu  2  0 dc 4.5
+Vdb  3  0 dc 18
 
-Vpr 1 0	dc 9
-Vbu 2 0 dc 4.5
-Vdb 3 0 dc 18
+
+vin  4  0 ac 1 pulse(-115m 115m 0s .5ms .5ms 1ns 1m);
+
+rin  4  5 10k 
+Cin  5  6 0.1u
+rbf  6  2 1Meg
+
+xbf  6  7 1 0 7 TL072
+
+// distortion out
+c1   7  8 .1u
+
+c2   8  9 68n
+r1   8  9 10k
+
+rx1  9 10 50k
+rg1 10 11 50k
+r2  11 12 2k
+
+r3  12 13 15k
+c3  12 13 82n
+xst  9 13 1 0 14 TL072
+r4  14 13 422k 
+c4  14 13 390p
+
+ccl 14 15 1u
+rcl 15 16 1k
+dpo  0 16 1N34A
+dne 16  0 1N34A
+cst 16 22 1u
+
+// clean filter out
+r5   7 17 5.1k 
+c5   7 17 68n
+r6  17  2 1.5k
+c6  17 18 .39u
+r7  18  2 1k
+rx2 17 19 50k
+rg2 19  2 50k
+//
+
+r8  19 20 22k
+c7  20 22 2.2u
+
+r9  22 23 47k
+
+r10 19 23 10k0 
+r11 19 21 10k1
+c11 21 23 .1u1
+
+xmi  2 23 3 0 24 TL072
+
+r12 24 23 10k2
+c8  24 23 820p
+
+r13 24 25 10k3
+r14 24 26 10k4
+ry  26 27 5k
+c9  27 25 3.9n
+rt  27 28 5k
+R15 28 29 10k5
+xhi  2 25 3 0 29 TL072
+R16 29 25 10k6
 
 
-vin 4 0 ac 1 sin(0 330m 440)
+r17 23 30 10k7
+r18 30  8 10k8
+c10 30  0 .1u0
 
-r1  4 5 10k
-C1  5 6 100n
-r2  6 2 100Meg
-
-x1 6 7 1 0 7 OPAMPMODH
-
+cot 29 31 4.7u
+rl  31  0 100k
 .option acct
-.tran .05m 7m
+.tran .075m 30m 20m
 .ac oct 15 18 22k
+.save v(4)
+.save v(31)
 .end 

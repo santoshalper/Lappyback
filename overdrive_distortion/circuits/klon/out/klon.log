@@ -1,5 +1,185 @@
 
 Circuit: klon circuit analysis
 
-Error: too few nodes: v_vos in+
-Error: there aren't any circuits loaded.
+Reducing trtol to 1 for xspice 'A' devices
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Warning: vin: no DC value, transient time 0 value used
+No. of Data Columns : 3  
+
+No. of Data Rows : 154
+No. of Data Columns : 3  
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+1                                            9
+2                                          4.5
+3                                           18
+4                                       -0.115
+5                                       -0.115
+6                                      4.49997
+xbf.11                                0.345441
+xbf.12                                0.345453
+xbf.6                              3.51082e-09
+xbf.7                                  4.49998
+7                                      4.49998
+xbf.53                                     6.8
+xbf.54                                     2.2
+xbf.90                            -4.04368e-06
+xbf.91                                      25
+xbf.92                                     -25
+xbf.99                                     4.5
+xbf.10                                 4.10138
+xbf.9                                        0
+xbf.8                                  4.49998
+8                                      4.50015
+9                                      4.50015
+10                                     4.50016
+11                                     4.50016
+12                                     4.50016
+13                                     4.50017
+xst.11                                 0.34544
+xst.12                                0.345453
+xst.6                             -3.10775e-08
+xst.7                                  4.50022
+14                                     4.50022
+xst.53                                     6.8
+xst.54                                     2.2
+xst.90                              1.2827e-07
+xst.91                                      25
+xst.92                                     -25
+xst.99                                     4.5
+xst.10                                 4.10157
+xst.9                                        0
+xst.8                                  4.50022
+15                                 4.88769e-21
+16                                 4.88769e-21
+22                                     4.50015
+17                                         4.5
+18                                         4.5
+19                                     4.50011
+20                                     4.50011
+23                                     4.50015
+21                                     4.50011
+xmi.11                                0.353101
+xmi.12                                0.353278
+xmi.6                              0.000637193
+xmi.7                                   4.5002
+24                                      4.5002
+xmi.53                                    15.8
+xmi.54                                     2.2
+xmi.90                             1.16429e-05
+xmi.91                                      25
+xmi.92                                     -25
+xmi.99                                       9
+xmi.10                                 4.10819
+xmi.9                                        0
+xmi.8                                   4.5002
+25                                     4.50015
+26                                     4.50017
+27                                     4.50015
+28                                     4.50014
+29                                     4.50011
+xhi.11                                0.353101
+xhi.12                                0.353278
+xhi.6                              0.000637206
+xhi.7                                  4.50011
+xhi.53                                    15.8
+xhi.54                                     2.2
+xhi.90                            -7.25254e-06
+xhi.91                                      25
+xhi.92                                     -25
+xhi.99                                       9
+xhi.10                                 4.10819
+xhi.9                                        0
+xhi.8                                  4.50011
+30                                     4.50015
+31                                           0
+h.xhi.hlim#branch                  1.45051e-17
+v.xhi.vlim#branch                 -7.25254e-09
+h.xmi.hlim#branch                 -2.32857e-17
+v.xmi.vlim#branch                  1.16429e-08
+h.xst.hlim#branch                 -2.56541e-19
+v.xst.vlim#branch                   1.2827e-10
+h.xbf.hlim#branch                  8.08736e-18
+v.xbf.vlim#branch                 -4.04368e-09
+v.xhi.vln#branch                  -2.50008e-11
+v.xhi.vlp#branch                  -2.50008e-11
+v.xhi.ve#branch                    2.30091e-12
+v.xhi.vc#branch                    1.13007e-11
+v.xhi.vb#branch                    6.37206e-09
+v.xmi.vln#branch                  -2.50008e-11
+v.xmi.vlp#branch                  -2.50008e-11
+v.xmi.ve#branch                      2.301e-12
+v.xmi.vc#branch                    1.13006e-11
+v.xmi.vb#branch                    6.37193e-09
+v.xst.vln#branch                  -2.50008e-11
+v.xst.vlp#branch                  -2.50008e-11
+v.xst.ve#branch                    2.30102e-12
+v.xst.vc#branch                    2.30058e-12
+v.xst.vb#branch                   -3.10775e-13
+v.xbf.vln#branch                  -2.50008e-11
+v.xbf.vlp#branch                  -2.50008e-11
+v.xbf.ve#branch                    2.30078e-12
+v.xbf.vc#branch                    2.30082e-12
+v.xbf.vb#branch                    3.51083e-14
+vin#branch                                   0
+vdb#branch                          -0.0171889
+vbu#branch                         2.16594e-10
+vpr#branch                         -0.00878944
+a$poly$e.xhi.egnd#branch_1_0      -4.76059e-06
+a$poly$e.xmi.egnd#branch_1_0      -4.77949e-06
+a$poly$e.xst.egnd#branch_1_0       -3.8846e-07
+a$poly$e.xbf.egnd#branch_1_0      -3.84472e-07
+
+
+No. of Data Rows : 342
+Total CPU time: 0.112 seconds.
+CPU time since last call: 0.112 seconds.
+Total DRAM available = 7861.085938 MB.
+DRAM currently available = 5753.566406 MB.
+Total ngspice program size = 15.311523 MB.
+Resident set size = 2.055664 MB.
+Shared ngspice pages = 1.792969 MB.
+Text (code) pages = 1.332031 MB.
+Stack = 0 bytes.
+Library pages = 454.000 kB.
+0 page faults, 0 vol + 0 invol = 0 context switches.
+
+Number of lines in the deck = 218
+Netlist loading time = 0
+Netlist parsing time = 0
+
+Nominal temperature = 27
+Operating temperature = 27
+Total iterations = 3534
+Transient iterations = 3486
+Circuit Equations = 122
+Circuit original non-zeroes = 441
+Circuit fill-in non-zeroes = 402
+Circuit total non-zeroes = 843
+Transient timepoints = 1600
+Accepted timepoints = 1283
+Rejected timepoints = 317
+Total analysis time = 0.096
+Matrix load time = 0.064
+Matrix synchronize time = 0
+Matrix reorder time = 0
+Matrix factor time = 0.02
+Matrix solve time = 0.004
+Transient analysis time = 0.092
+Transient load time = 0.064
+Transient sync time = 0
+Transient factor time = 0.016
+Transient solve time = 0.004
+Transient trunc time = 0.004
+Transient iters per point = 0
+AC analysis time = 0
+AC load time = 0
+AC sync time = 0
+AC factor time = 0
+AC solve time = 0
+
