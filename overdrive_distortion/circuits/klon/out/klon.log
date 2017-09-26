@@ -7,9 +7,6 @@ Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
 Warning: vin: no DC value, transient time 0 value used
 No. of Data Columns : 3  
 
-No. of Data Rows : 154
-No. of Data Columns : 3  
-
 Initial Transient Solution
 --------------------------
 
@@ -18,8 +15,8 @@ Node                                   Voltage
 1                                            9
 2                                          4.5
 3                                           18
-4                                       -0.115
-5                                       -0.115
+4                                           -1
+5                                           -1
 6                                      4.49997
 xbf.11                                0.345441
 xbf.12                                0.345453
@@ -43,7 +40,7 @@ xbf.8                                  4.49998
 13                                     4.50017
 xst.11                                 0.34544
 xst.12                                0.345453
-xst.6                             -3.10775e-08
+xst.6                             -3.10774e-08
 xst.7                                  4.50022
 14                                     4.50022
 xst.53                                     6.8
@@ -136,46 +133,46 @@ a$poly$e.xst.egnd#branch_1_0       -3.8846e-07
 a$poly$e.xbf.egnd#branch_1_0      -3.84472e-07
 
 
-No. of Data Rows : 342
-Total CPU time: 0.112 seconds.
-CPU time since last call: 0.112 seconds.
+No. of Data Rows : 1175
+Total CPU time: 0.168 seconds.
+CPU time since last call: 0.168 seconds.
 Total DRAM available = 7861.085938 MB.
-DRAM currently available = 5753.566406 MB.
-Total ngspice program size = 15.311523 MB.
-Resident set size = 2.055664 MB.
-Shared ngspice pages = 1.792969 MB.
+DRAM currently available = 7217.484375 MB.
+Total ngspice program size = 15.303711 MB.
+Resident set size = 1.971680 MB.
+Shared ngspice pages = 1.719727 MB.
 Text (code) pages = 1.332031 MB.
 Stack = 0 bytes.
-Library pages = 454.000 kB.
-0 page faults, 0 vol + 0 invol = 0 context switches.
+Library pages = 446.000 kB.
+0 page faults, 1 vol + 3 invol = 4 context switches.
 
-Number of lines in the deck = 218
+Number of lines in the deck = 217
 Netlist loading time = 0
 Netlist parsing time = 0
 
 Nominal temperature = 27
 Operating temperature = 27
-Total iterations = 3534
-Transient iterations = 3486
+Total iterations = 5798
+Transient iterations = 5774
 Circuit Equations = 122
 Circuit original non-zeroes = 441
-Circuit fill-in non-zeroes = 402
-Circuit total non-zeroes = 843
-Transient timepoints = 1600
-Accepted timepoints = 1283
-Rejected timepoints = 317
-Total analysis time = 0.096
-Matrix load time = 0.064
+Circuit fill-in non-zeroes = 376
+Circuit total non-zeroes = 817
+Transient timepoints = 1946
+Accepted timepoints = 1441
+Rejected timepoints = 505
+Total analysis time = 0.148
+Matrix load time = 0.088
 Matrix synchronize time = 0
 Matrix reorder time = 0
-Matrix factor time = 0.02
-Matrix solve time = 0.004
-Transient analysis time = 0.092
-Transient load time = 0.064
+Matrix factor time = 0.04
+Matrix solve time = 0
+Transient analysis time = 0.144
+Transient load time = 0.088
 Transient sync time = 0
-Transient factor time = 0.016
-Transient solve time = 0.004
-Transient trunc time = 0.004
+Transient factor time = 0.04
+Transient solve time = 0
+Transient trunc time = 0.012
 Transient iters per point = 0
 AC analysis time = 0
 AC load time = 0
