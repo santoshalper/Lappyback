@@ -44,15 +44,17 @@ void int2spice(int val, char *outSp) {
      int l=2;
      int up=val/1000;
      int lo=val%1000;
-     int nudig = floor(log10(up));
+     int nudig=0;
      int nldig=0;
      char dig; 
+     if(up!=0) {
+     nudig = floor(log10(up));
      while(i<nudig+1){
 	dig = (char) ((up/((int) pow(10,i)))%10);
 	dig += '0';
 	*(outSp+(nudig-i))=dig;
 	i++;
-     }  	
+     }
      *(outSp+nudig+1)='k'; 
      i=0;
      if(lo!=0) {
@@ -66,6 +68,17 @@ void int2spice(int val, char *outSp) {
      } 
      else *(outSp+nudig+2) = ' ';  	
      *(outSp+nudig+5)='\0';
+     }
+     else {
+      nldig = floor(log10(lo));
+      while(i<nldig+1){
+	dig = (char) ((lo/((int) pow(10,i)))%10);
+	dig += '0';
+	*(outSp+(nldig-i))=dig;
+	i++;
+     }
+     *(outSp+nldig+1)='\0'; 
+    }
 }
 	
 int spice2int(char* inpSp) {
