@@ -6,7 +6,7 @@ Vbu  2  0 dc 4.5
 Vdb  3  0 dc 18
 
 
-vin  4  0 ac ~Vac //pulse(-315m 315m 0s .5ms .5ms 1ns 1m);
+vin  4  0 ac 1 pulse(-315m 315m 0s .5ms .5ms 1ns 1m); //vac
 
 rin  4  5 10k 
 Cin  5  6 0.1u
@@ -20,8 +20,8 @@ c1   7  8 ~C1
 c2   8  9 ~C2
 r1   8  9 ~R1
 
-rx1  9 10 50k
-rg1 10 11 50k
+rx1  9 10 ~V GAIN 1
+rg1 10 11 ~V GAIN 2
 r2  11 12 ~R2
 
 r3  12 13 ~R3
@@ -42,8 +42,8 @@ c5   7 17 ~C5
 r6  17  2 ~R6
 c6  17 18 ~C6
 r7  18  2 ~R7
-rx2 17 19 50k
-rg2 19  2 50k
+rx2 17 19 ~V GAIN 1
+rg2 19  2 ~V GAIN 2
 //
 
 r8  19 20 ~R8
@@ -62,9 +62,9 @@ c8  24 23 ~C8
 
 r13 24 25 ~R13
 r14 24 26 ~R14
-ry  26 27 5k
+ry  26 27 ~V TREB 1
 c9  27 25 ~C9
-rt  27 28 5k
+rt  27 28 ~V TREB 2
 R15 28 29 ~R15
 xhi  2 25 3 0 29 TL072
 R16 29 25 ~R16
@@ -77,7 +77,7 @@ c10 30  0 ~C10
 cot 29 31 4.7u
 rl  31  0 100k
 .option acct
-~An
+.ac dec 10 20 20k // An
 .save v(4)
 .save v(31)
-.end
+.end 

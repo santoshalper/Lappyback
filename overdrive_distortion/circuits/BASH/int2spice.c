@@ -6,39 +6,74 @@
 #define BUF 501
 int spice2int(char*);
 void int2spice(int,char*);
+int potSweep(int,int,int);
 int main(int argc, char* argv[]) {
-    int min = spice2int(argv[1]);
-    int NoS = atoi(argv[2]);
-    int max = spice2int(argv[3]);
-    int ssize;
-    int outInt[BUF];
-    char outStr[BUF][50];
-    if(min < 0) {
-      printf("min input error\n");
+   if(argc < 4) {
+      printf("too few arguements\n");
       return -1;
     }
-    else if(max < 0) {
-      printf("max input error\n");
-      return -1;
-    }
-    else if(NoS > BUF) {
-      printf("data input max\n");
-      return -1;
-    }
-    else{
-      ssize=(max-min);
-      ssize=ssize/NoS;
-	for(int i=0;i<NoS;i++)
-	  outInt[i] = min+(ssize*i);
-        if(NoS<BUF && outInt[NoS-1] != max)
-	  outInt[NoS] = max;
-	for(int i=0;i<(NoS+1);i++) {
-	 int2spice(outInt[i],outStr[i]);
- 	 printf("out[%d]=%d %s\n", i, outInt[i], outStr[i]);
-	}
+    else if(strlen(argv[1])>1) {
+      printf("single char flags\n");
       return 0;
     }
+    else {
+      char flag = *argv[1];
+      int ret;
+      int min;
+      int max;
+      int NoS;
+      FILE *outf;
+      outf = fopen("./out/resSweep/res.out","w+");
+      if (flag == 'w') {
+	min = spice2int(argv[2]);
+        NoS = atoi(argv[3]);
+        max = spice2int(argv[4]);
+        int ssize;
+        int outInt[BUF];
+        char outStr[BUF][50];
+        if(min < 0) {
+          printf("min input error\n");
+          ret = -1;
+        }
+        else if(max < 0) {
+          printf("max input error\n");
+          ret = -1;
+        }
+        else if(NoS > BUF) {
+          printf("data input max\n");
+          ret = -1;
+        }
+        else{
+          ssize=(max-min);
+          ssize=ssize/NoS;
+	  for(int i=0;i<NoS;i++)
+	    outInt[i] = min+(ssize*i);
+          if(NoS<BUF && outInt[NoS-1] != max)
+	    outInt[NoS] = max;
+	  for(int i=0;i<(NoS+1);i++) {
+	    int2spice(outInt[i],outStr[i]);
+	    fprintf(outf,"r%d %s\n",i,outStr[i]);
+	  }
+          ret = 0; 
+        }  	
+      }
+      else if (flag == 's') {
+        max = spice2int(argv[2]);
+	min = spice2int(argv[3]);
+	char outS[15];
+        int2spice((max-min),outS);
+        printf("%s\n", outS);
+        ret = 0;
+      }
+      else {
+        printf("incorrect flag\n");
+        ret = -1;
+      }
+    fclose(outf); 
+    return ret;
+    }
 }
+
 void int2spice(int val, char *outSp) {
      int i=0;
      int l=2;

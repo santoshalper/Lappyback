@@ -1,5 +1,10 @@
 #!/bin/bash
 mkdir -p out/
+if [ -z $1 ]
+then
+echo "need input cir file"
+exit -1
+fi
 FIL=$1
 FIL="${FIL%.*}"
 TMP=out/"$FIL".out
@@ -7,9 +12,23 @@ RAW=out/"$FIL".raw
 LOG=out/"$FIL".log
 NoR=$(grep -c ~R "$1")
 NoC=$(grep -c ~C "$1")
+NoV=$(grep -c ~V "$1")
 Nsel=$(grep -c ~Ns "$1")
+TeN=$(grep -c ~An "$1")
+
+MON=0
+
+TRT=".tran ~1 ~2 ~3"
+ACT=".ac ~1 ~2 ~3 ~4"
+#pulse 1-init V 2-pulse V 3-delay 4-rise 5-fall 6-PW 7-period
+PLS="pulse(~1 ~2 ~3 ~4 ~5 ~6 ~7)"
+#sine 1-off 2-amp 3-freq 4-delay 5-theta
+SIN="sin(~1 ~2 ~3 ~4 ~5)"
+
+
 Rc=1
 Cc=1
+Vc=1
 cp "$1" "$TMP"
 
 if [ ! -z "$2" ]
@@ -24,9 +43,6 @@ while [ $Rc -le $NoR ]; do
 	fi
 	let Rc=Rc+1
 done
-let Rc=1
-NoR=$(grep -c ~R "$TMP")
-let New=1
 while [ $Cc -le $NoC ]; do
         val=$(grep 'C'"$Cc"' ' "$2" | awk '{print $2}')
 	if [ ! -z "$val" ]; then
@@ -40,10 +56,9 @@ done
 else
 while [ $Rc -le $NoR ]; do
 	read -p"resistor R$Rc: " val
-	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~r'"$Rc"'/'"$val"'/g' "$TMP"
 	let Rc=Rc+1
 done
-
 while [ $Cc -le $NoC ]; do
 	read -p"capacitor C$Cc: " val
 	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
@@ -51,7 +66,101 @@ while [ $Cc -le $NoC ]; do
 done
 fi
 
-if [ $Nsel -eq 1 ]
+if [ $TeN -gt 0 ] 
+then
+SIG=0
+unset val
+    while [ $MON -lt 1 ]; do
+        read -p"Run test: a-AC t-Transient " val
+	 if [ -z ${val} ]; then
+            echo "input error"
+         elif [ $val == 'a' ] 
+           then
+	    echo "ac sweep config"
+            sed -i -e 's/~Vac/1/g' "$TMP"
+	    sed -i -e 's/~An/'"$ACT"'/g' "$TMP"
+	    read -p"set scale: oct dec lin " val
+	    sed -i -e 's/~1/'"$val"'/g' "$TMP"
+	    read -p"# of points/unit sel " val
+	    sed -i -e 's/~2/'"$val"'/g' "$TMP"
+	    read -p"Low Frequency " val
+	    sed -i -e 's/~3/'"$val"'/g' "$TMP"
+	    read -p"High Frequency " val
+	    sed -i -e 's/~4/'"$val"'/g' "$TMP"
+            let MON=1
+         elif [ $val == 't' ]
+	   then
+	    unset val
+           while [ $MON -lt 1 ]; do
+	    read -p"select signal: tRI sQR SiNE" val
+	    if [ -z ${val} ]; then
+              echo "input error"
+            elif [ $val == 't' ]; then
+	      echo "triangle"
+	      sed -i -e 's/~Vac/'"$PLS"'/g' "$TMP"
+	      read -p"set lower peak V: " val
+	      sed -i -e 's/~1/'"$val"'/g' "$TMP"
+	      read -p"set upper peak V: " val
+	      sed -i -e 's/~2/'"$val"'/g' "$TMP"
+	      read -p"set delay " val
+	      sed -i -e 's/~3/'"$val"'/g' "$TMP"
+	      read -p"set rise time: " val
+	      sed -i -e 's/~4/'"$val"'/g' "$TMP"
+	      read -p"set fall time: " val
+	      sed -i -e 's/~5/'"$val"'/g' "$TMP"
+	      sed -i -e 's/~6/1ns/g' "$TMP"
+	      read -p"set period=rise+fall: " val
+	      sed -i -e 's/~7/'"$val"'/g' "$TMP"
+              let MON=1
+            elif [ $val == 's' ]; then
+	      echo "square"
+	      sed -i -e 's/~Vac/'"$PLS"'/g' "$TMP"
+	      read -p"set lower peak V: " val
+	      sed -i -e 's/~1/'"$val"'/g' "$TMP"
+	      read -p"set upper peak V: " val
+	      sed -i -e 's/~2/'"$val"'/g' "$TMP"
+	      read -p"set delay " val
+	      sed -i -e 's/~3/'"$val"'/g' "$TMP"
+	      sed -i -e 's/~4/1ns/g' "$TMP"
+	      sed -i -e 's/~5/1ns/g' "$TMP"
+	      read -p"set pulse width: " val
+	      sed -i -e 's/~6/'"$val"'/g' "$TMP"
+	      read -p"set period: " val
+	      sed -i -e 's/~7/'"$val"'/g' "$TMP"
+	      let MON=1
+            elif [ $val == 'i' ]; then
+              echo "sine"
+	      sed -i -e 's/~Vac/'"$SIN"'/g' "$TMP"
+	      read -p"set offset: " val
+	      sed -i -e 's/~1/'"$val"'/g' "$TMP"
+	      read -p"set amplitude: " val
+	      sed -i -e 's/~2/'"$val"'/g' "$TMP"
+	      read -p"set freq:" val
+	      sed -i -e 's/~3/'"$val"'/g' "$TMP"
+	      read -p"set delay: " val
+	      sed -i -e 's/~4/'"$val"'/g' "$TMP"
+	      read -p"set damping: " val
+	      sed -i -e 's/~5/'"$val"'/g' "$TMP"
+	      let MON=1
+	    else 
+	      echo "input error"
+            fi
+	   done
+	    echo "Tranient test Config"
+  	    sed -i -e 's/~An/'"$TRT"'/g' "$TMP"
+	    read -p"set start: " val
+	    sed -i -e 's/~3/'"$val"'/g' "$TMP"
+	    read -p"set end: " val
+	    sed -i -e 's/~2/'"$val"'/g' "$TMP"
+	    read -p"set step size: " val
+	    sed -i -e 's/~1/'"$val"'/g' "$TMP"
+           else 
+	    echo "input error"
+           fi
+     done
+fi
+
+if [ $Nsel -gt 0 ]
 then
 Nc=1
    read -p"number of nodes to test: " nl
@@ -68,11 +177,73 @@ Nc=1
        fi	
     sed -i -e '/~Ns/d' "$TMP"
 fi
-sudo ngspice -b -r"$RAW" -o"$LOG" "$TMP"
-if [ $? -eq 0 ]
-then 
- sudo gaw "$RAW" &
+
+
+if [ $NoV -gt 0 ] 
+then
+    vars=$(grep '~V ' "$TMP" | awk '{print $5}') 
+    vars=($(echo "${vars[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
+    let NoV=${#vars[@]}
+    echo "Test Style:"
+    unset val
+    let MON=0
+    while [ $MON -lt 1 ]; do
+    read -p"sINGLE or SwEEP: " val
+    if [ -z ${val} ]; then
+       echo "input error"
+    elif [ $val == 'w' ]; then
+       mkdir -p out/resSweep
+       SWE=out/resSweep/res.out
+       echo "variables found: "
+       echo ${vars[@]}
+       read -p"choose sweep var: " varn
+       Vswep=${vars[varn-1]}
+       while [ $Vc -le $NoV ]; do
+         if [ ${vars[$Vc-1]} != $Vswep ]; then
+          read -p"potentiometer $Vc size :" max
+          read -p"short side value: " min
+          long=$(int2spice s $max $min)
+          sed -i -e 's/~V '"${vars[$Vc-1]}"' 1/'"$min"'/g' "$TMP" 
+          sed -i -e 's/~V '"${vars[$Vc-1]}"' 2/'"$long"'/g' "$TMP" 
+         fi
+	 let Vc=Vc+1
+       done
+       read -p"min of sweep: " NoS
+       read -p"# of sweep steps: " NoS
+       read -p"max of sweep: " NoS
+       int2spice "$val" "$min" " $NoS" "$max"
+       vi $SWE
+       let MON=1
+    elif [ $val == 's' ]; then
+      while [ $Vc -le $NoV ]; do
+          read -p"potentiometer $Vc size :" max
+          read -p"short side value: " min
+          long=$(int2spice $val $max $min)
+          sed -i -e 's/~V '"${vars[$Vc-1]}"' 1/'"$min"'/g' "$TMP" 
+          sed -i -e 's/~V '"${vars[$Vc-1]}"' 2/'"$long"'/g' "$TMP" 
+	  let Vc=Vc+1
+       done
+       sudo ngspice -b -r"$RAW" -o"$LOG" "$TMP"
+       if [ $? -eq 0 ]
+       then 
+        sudo gaw "$RAW" &
+       else
+        echo "ngspice failure"
+        vi "$LOG"
+       fi
+       let MON=1
+    else
+       echo "input error"
+    fi
+    done
 else
- echo "ngspice failure"
- vi "$LOG"
+    sudo ngspice -b -r"$RAW" -o"$LOG" "$TMP"
+    if [ $? -eq 0 ]
+    then 
+    sudo gaw "$RAW" &
+    else
+    echo "ngspice failure"
+    vi "$LOG"
+    fi
 fi
+
