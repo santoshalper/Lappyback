@@ -15,6 +15,8 @@ NoC=$(grep -c ~C "$1")
 NoV=$(grep -c ~V "$1")
 Nsel=$(grep -c ~Ns "$1")
 TeN=$(grep -c ~An "$1")
+SIG=$(grep -c ~Vac "$1")
+
 
 MON=0
 
@@ -68,7 +70,6 @@ fi
 
 if [ $TeN -gt 0 ] 
 then
-SIG=0
 unset val
     while [ $MON -lt 1 ]; do
         read -p"Run test: a-AC t-Transient " val
@@ -91,6 +92,7 @@ unset val
          elif [ $val == 't' ]
 	   then
 	    unset val
+	    if [ $SIG -gt 0 ]; then 
            while [ $MON -lt 1 ]; do
 	    read -p"select signal: tRI sQR SiNE" val
 	    if [ -z ${val} ]; then
@@ -145,7 +147,10 @@ unset val
 	    else 
 	      echo "input error"
             fi
-	   done
+	    done
+            else 
+              let MON=1;
+            fi
 	    echo "Tranient test Config"
   	    sed -i -e 's/~An/'"$TRT"'/g' "$TMP"
 	    read -p"set start: " val
@@ -192,8 +197,16 @@ then
     if [ -z ${val} ]; then
        echo "input error"
     elif [ $val == 'w' ]; then
-       mkdir -p out/resSweep
        SWE=out/resSweep/res.out
+       NTD=out/resSweep	
+       NTDo="${NTD}"/out
+       NTDr="${NTD}"/raw
+       NTDl="${NTD}"/log
+       mkdir -p "$NTD"
+       mkdir -p "$NTDo"
+       mkdir -p "$NTDl"
+       mkdir -p "$NTDr"
+            
        echo "variables found: "
        echo ${vars[@]}
        read -p"choose sweep var: " varn
@@ -208,11 +221,23 @@ then
          fi
 	 let Vc=Vc+1
        done
-       read -p"min of sweep: " NoS
+       read -p"min of sweep: " min
        read -p"# of sweep steps: " NoS
-       read -p"max of sweep: " NoS
+       read -p"max of sweep: " max
        int2spice "$val" "$min" " $NoS" "$max"
-       vi $SWE
+       NoVR=$(grep -c r "$SWE")
+       let Vc=1
+       while [ $Vc -le $NoVR ]; do
+       	 cp "$TMP" "$NTDo"/"$FIL""$Vc".out
+         min=$(grep 'r'"$Vc"' ' "$SWE" | awk '{print $2}')
+         max=$(grep 'r'"$((($NoVR+1)-$Vc))"' ' "$SWE" | awk '{print $2}')
+         sed -i -e 's/~V '"$Vswep"' 1/'"$min"'/g' "$NTDo"/"$FIL""$Vc".out
+         sed -i -e 's/~V '"$Vswep"' 2/'"$max"'/g' "$NTDo"/"$FIL""$Vc".out
+         sudo ngspice -b -r "$NTDr"/"$FIL""$Vc".raw -o "$NTDl"/"$FIL""$Vc".log "$NTDo"/"$FIL""$Vc".out
+         let Vc=Vc+1
+       done
+       cat "$NTDr"/*.raw > "$NTD"/"$FIL"all.raw
+       gaw "$NTD"/"$FIL"all.raw
        let MON=1
     elif [ $val == 's' ]; then
       while [ $Vc -le $NoV ]; do

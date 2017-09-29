@@ -46,11 +46,11 @@ int main(int argc, char* argv[]) {
         else{
           ssize=(max-min);
           ssize=ssize/NoS;
-	  for(int i=0;i<NoS;i++)
-	    outInt[i] = min+(ssize*i);
-          if(NoS<BUF && outInt[NoS-1] != max)
+	  for(int i=1;i<NoS;i++)
+	    outInt[i] = min+(ssize*(i-1));
+          if(NoS<BUF && outInt[NoS] != max)
 	    outInt[NoS] = max;
-	  for(int i=0;i<(NoS+1);i++) {
+	  for(int i=1;i<(NoS+1);i++) {
 	    int2spice(outInt[i],outStr[i]);
 	    fprintf(outf,"r%d %s\n",i,outStr[i]);
 	  }

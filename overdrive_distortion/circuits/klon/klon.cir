@@ -32,6 +32,7 @@ c4  14 13 ~C4
 
 ccl 14 15 1u
 rcl 15 16 1k
+rdp  1 16 3k9
 dpo  0 16 1N34A
 dne 16  0 1N34A
 cst 16 22 1u
@@ -77,7 +78,7 @@ c10 30  0 ~C10
 cot 29 31 4.7u
 rl  31  0 100k
 .option acct
-.ac dec 10 20 20k // An
+~An
 .save v(4)
 .save v(31)
 .end 
