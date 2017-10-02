@@ -36,25 +36,36 @@
 // Use project enums instead of #define for ON and OFF.
 
 void inita2d(void);
-void initIntA2d(void);
+void initPWMdac(void);
 
-int x[NoB];
+volatile int x[NoB];
+volatile int y[NoB];
+volatile char outf;
+
+void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
+    int j=0;
+    IFS0 &= 0xFFBF;
+    if(outf == 0) {
+      OC2RS = y[j];
+      j++;
+      if (j==NoB) j=0;
+    }
+}
 
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
-	while(!(ADCON1&&0x0001));
+    while(!(ADCON1&&0x0001));
     for(int i=0; i<NoB; i++)
         x[i] = *((&ADCBUF0) + i);
     PORTD ^= 0x0001;
-    
-    
-	IFS0 &= 0xF7FF;
+    IFS0 &= 0xF7FF;
 }
+
 
 int main(void) {
     int m=0;
 //set all i/o to digital
     TRISA = 0x0000;
-    TRISB = 0x0000;
+   TRISB = 0x0000;
     TRISC = 0x0000;
     TRISD = 0x0000;
     TRISF = 0x0000;
@@ -66,11 +77,13 @@ int main(void) {
     PORTF = 0x0000;
 
     inita2d();
-      
+    initPWMdac();     
     while (1) {
-        while (m<10) m++;
-        m = 0;
-        PORTC ^= 0x8000;
+	outf = 1;
+        y[m] = x[m];
+        m++
+        if (m==NoB) m=0;
+	outf = 0;
     }
     return 0;
 }
@@ -92,14 +105,30 @@ void inita2d(void) {
 
 //Clear I/O ports pre activation
     PORTB = 0x0000;
-    initIntA2d();
-    ADCON1 |= 0x8000; //turn on adc
-}     
+      
+    IPC2 |= 0X6000; 
+    IFS0 &= 0xF7FF;
+    IEC0 |= 0x0800; //adc int set
 
-void initIntA2d() {
-     IPC2 = 0X6000; 
-     IEC0 = 0x0800; //adc int set
+
+    ADCON1 |= 0x8000; //turn on adc
+} 
+
+void initPWMdac(void) {   
+     OC2CON = 0x0006; //PWM MODE No fault protection TMR2 Selected
+     T2CON = 0x0000;
+     PR2 = 0x00FF;
+     IPC1 |=0x0500;
+     IFS0 &= 0xFFBF;
+     IEC0 |= 0x0040;
+     	 
+     OC2RS = 0x0000; //Init PWM duty cycle to 0%
+     OC2R = 0x0000;
+     T2CON |= 0x8000;
 }
+
+
+              
 
 
 

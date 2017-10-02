@@ -44,10 +44,11 @@ int main(int argc, char* argv[]) {
           ret = -1;
         }
         else{
-          ssize=(max-min);
-          ssize=ssize/NoS;
+          max=max-min;
+          ssize=max/(NoS-1);
 	  for(int i=1;i<NoS;i++)
-	    outInt[i] = min+(ssize*(i-1));
+	    outInt[i] = (min/2)+(ssize*(i-1));
+	    outInt[1] = min; 
           if(NoS<BUF && outInt[NoS] != max)
 	    outInt[NoS] = max;
 	  for(int i=1;i<(NoS+1);i++) {
