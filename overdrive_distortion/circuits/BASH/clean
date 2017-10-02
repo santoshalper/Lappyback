@@ -1,0 +1,4 @@
+#!/bin/bash
+TMP=out/
+
+sudo rm -r "$TMP"
