@@ -38,32 +38,33 @@ then
 while [ $Rc -le $NoR ]; do
         val=$(grep 'R'"$Rc"' ' "$2" | awk '{print $2}')
 	if [ ! -z "$val" ]; then
-	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~R'"$Rc"' /'"$val"'/g' "$TMP"
 	else
         read -p"Resistor R$Rc: " val
-	sed -i -e 's/~R'"$Rc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~R'"$Rc"' /'"$val"'/g' "$TMP"
 	fi
 	let Rc=Rc+1
 done
 while [ $Cc -le $NoC ]; do
         val=$(grep 'C'"$Cc"' ' "$2" | awk '{print $2}')
 	if [ ! -z "$val" ]; then
-	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~C'"$Cc"' /'"$val"'/g' "$TMP"
 	else
        	read -p"capacitor C$Cc: " val
-	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~C'"$Cc"' /'"$val"'/g' "$TMP"
 	fi
 	let Cc=Cc+1
 done
 else
 while [ $Rc -le $NoR ]; do
 	read -p"resistor R$Rc: " val
-	sed -i -e 's/~r'"$Rc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~R'"$Rc"' /'"$val"'/g' "$TMP"
 	let Rc=Rc+1
 done
+
 while [ $Cc -le $NoC ]; do
 	read -p"capacitor C$Cc: " val
-	sed -i -e 's/~C'"$Cc"'/'"$val"'/g' "$TMP"
+	sed -i -e 's/~C'"$Cc"' /'"$val"'/g' "$TMP"
 	let Cc=Cc+1
 done
 fi
@@ -216,6 +217,7 @@ then
           read -p"potentiometer $Vc size :" max
           read -p"short side value: " min
           long=$(int2spice s $max $min)
+	  min=$(int2spice s $min 0)
           sed -i -e 's/~V '"${vars[$Vc-1]}"' 1/'"$min"'/g' "$TMP" 
           sed -i -e 's/~V '"${vars[$Vc-1]}"' 2/'"$long"'/g' "$TMP" 
          fi
@@ -244,6 +246,7 @@ then
           read -p"potentiometer $Vc size :" max
           read -p"short side value: " min
           long=$(int2spice $val $max $min)
+	  min=$(int2spice s $min 0)
           sed -i -e 's/~V '"${vars[$Vc-1]}"' 1/'"$min"'/g' "$TMP" 
           sed -i -e 's/~V '"${vars[$Vc-1]}"' 2/'"$long"'/g' "$TMP" 
 	  let Vc=Vc+1

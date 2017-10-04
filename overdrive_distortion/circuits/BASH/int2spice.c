@@ -77,44 +77,47 @@ int main(int argc, char* argv[]) {
 
 void int2spice(int val, char *outSp) {
      int i=0;
-     int l=2;
      int up=val/1000;
      int lo=val%1000;
      int nudig=0;
      int nldig=0;
      char dig; 
      if(up!=0) {
-     nudig = floor(log10(up));
-     while(i<nudig+1){
-	dig = (char) ((up/((int) pow(10,i)))%10);
-	dig += '0';
-	*(outSp+(nudig-i))=dig;
-	i++;
-     }
-     *(outSp+nudig+1)='k'; 
-     i=0;
-     if(lo!=0) {
-      nldig = floor(log10(lo));
-      while(i<l+1) { 
-	dig = (char) ((lo/((int) pow(10,i)))%10);
-	dig += '0';
-	*((outSp+nudig+2)+(l-i))=dig;
-	i++;
-      }
-     } 
-     else *(outSp+nudig+2) = ' ';  	
-     *(outSp+nudig+5)='\0';
+       nudig = floor(log10(up));
+       while(i<nudig+1){
+	 dig = (char) ((up/((int) pow(10,i)))%10);
+	 dig += '0';
+	 *(outSp+(nudig-i))=dig;
+	 i++;
+       }
+       i=0;
+       if(lo!=0) {
+        *(outSp+nudig+1) = '.';  	
+        nldig = floor(log10(lo));
+        while(i<3) { 
+	  dig = (char) ((lo/((int) pow(10,i)))%10);
+	  dig += '0';
+	  *((outSp+nudig+4-i))=dig;
+	  i++;
+        }
+	  *(outSp+nudig+5) = 'k';
+	  *(outSp+nudig+6) = '\0';
+       } 
+       else { 
+          *(outSp+nudig+1) = 'k';  	
+          *(outSp+nudig+2)='\0';
+       }
      }
      else {
-      nldig = floor(log10(lo));
-      while(i<nldig+1){
-	dig = (char) ((lo/((int) pow(10,i)))%10);
-	dig += '0';
-	*(outSp+(nldig-i))=dig;
-	i++;
+       nldig = floor(log10(lo));
+       while(i<nldig+1){
+ 	 dig = (char) ((lo/((int) pow(10,i)))%10);
+	 dig += '0';
+	 *(outSp+(nldig-i))=dig;
+	 i++;
+       }
+      *(outSp+nldig+1)='\0'; 
      }
-     *(outSp+nldig+1)='\0'; 
-    }
 }
 	
 int spice2int(char* inpSp) {

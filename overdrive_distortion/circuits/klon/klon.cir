@@ -6,7 +6,7 @@ Vbu  2  0 dc 4.5
 Vdb  3  0 dc 18
 
 
-vin  4  0 ac 1 pulse(-315m 315m 0s .15ms .15ms 1ns .3m); //vac
+vin  4  0 ac 1 pulse(-315m 315m 0s .125ms .125ms 1ns .25m); //vac
 
 rin  4  5 10k 
 Cin  5  6 0.1u
@@ -15,71 +15,73 @@ rbf  6  2 1Meg
 xbf  6  7 1 0 7 TL072
 
 // distortion out
-c1   7  8 ~C1
+c1   7  8 ~C1 
 
-c2   8  9 ~C2
-r1   8  9 ~R1
+c2   8  9 ~C2 
+r1   8  9 ~R1 
 
-rx1  9  2 ~V GAIN 1
+rx1  2  9 ~V GAIN 1
 
 rg1  2 11 ~V GAIN 2
-r2  11 12 ~R2
+r2  11 12 ~R2 
 
-r3  12 13 ~R3
-c3  12 13 ~C3
+r3  12 13 ~R3 
+c3  12 13 ~C3 
 xst  9 13 1 0 14 TL072
-r4  14 13 ~R4 
-c4  14 13 ~C4
+r4  14 13 ~R4  
+c4  14 13 ~C4 
 
 ccl 14 15 1u
 rcl 15 16 1k
-rdp  1 16 3k9
+rdp  1 16 3.9k
 dpo  0 16 1N34A
 dne 16  0 1N34A
 cst 16 22 1u
 
 // clean filter out
 r5   7 17 ~R5 
-c5   7 17 ~C5
-r6  17  2 ~R6
-c6  17 18 ~C6
-r7  18  2 ~R7
+c5   7 17 ~C5 
+r6  17  2 ~R6 
+c6  17 18 ~C6 
+r7  18  2 ~R7 
 rx2 17 19 ~V GAIN 1
 rg2 19  2 ~V GAIN 2
 //
 
-r8  19 20 ~R8
-c7  20 22 ~C7
+r8  19 20 ~R8 
+c7  20 22 ~C7 
 
-r9  22 23 ~R9
+r9  22 23 ~R9 
 
-r10 19 23 ~R10 
-r11 19 21 ~R11
-c11 21 23 ~C11
-
+r10 19 23 ~R10  
+r11 19 21 ~R11 
+c11 21 23 ~C11 
+ 
 xmi  2 23 3 0 24 TL072
 
-r12 24 23 ~R12
-c8  24 23 ~C8
+r12 24 23 ~R12 
+c8  24 23 ~C8 
 
-r13 24 25 ~R13
-r14 24 26 ~R14
+r13 24 25 ~R13 
+r14 24 26 ~R14 
 ry  26 27 ~V TREB 1
-c9  27 25 ~C9
+c9  27 25 ~C9 
 rt  27 28 ~V TREB 2
-R15 28 29 ~R15
+R15 28 29 ~R15 
 xhi  2 25 3 0 29 TL072
-R16 29 25 ~R16
+R16 29 25 ~R16 
 
 
-r17 23 30 ~R17
-r18 30  8 ~R18
-c10 30  0 ~C10
+r17 23 30 ~R17 
+r18 30  8 ~R18 
+c10 30  0 ~C10 
 
 cot 29 31 4.7u
-rl  31  0 100k
+rl  31  0 20k
+
 .option acct
-~An
+.tran .03ms 9ms 8ms//An
 .save v(4)
 .save v(31)
+~Ns
 .end 

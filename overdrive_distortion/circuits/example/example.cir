@@ -5,14 +5,11 @@ vbu 2 0 -9
 vsi 3 0 ac pulse(-1 1 0 2n 2n 1m 2m);
 rin 4 0 ~R1
 x1  3 4 1 2 5 TL072
-cfe 5 4 ~C1
 rfe 5 4 ~R2
 rlo 5 0 1Meg
 .option noacct
 .tran .05m 7m
-.ac oct 15 20 20k
 let loop = 1;
 .save v(3)
 .save v(5)
-~Ns
 .end
