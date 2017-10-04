@@ -7,10 +7,12 @@
 
 
 #include "xc.h"
+#include <libpic30.h>
 
 //LIMIT 16 DONT FUCK UP 
 #define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
-#define NoB 15
+#define NoB 8
+#define NoO 8
 //
 
 // DSPIC30F3014 Configuration Bit Settings
@@ -38,25 +40,29 @@
 void inita2d(void);
 void initPWMdac(void);
 
-volatile int x[NoB];
-volatile int y[NoB];
+volatile int x[NoO];
+volatile int y[NoO];
+volatile int f[NoO];
+volatile int j=0;
+volatile int k=0;
+volatile int cnt=0;
 volatile char outf;
 
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
-    int j=0;
     IFS0 &= 0xFFBF;
-    if(outf == 0) {
-      OC2RS = y[j];
+      OC2RS = y[j]>>4;
       j++;
-      if (j==NoB) j=0;
-    }
+      if (j==NoO) j=0;
 }
 
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
     while(!(ADCON1&&0x0001));
-    for(int i=0; i<NoB; i++)
-        x[i] = *((&ADCBUF0) + i);
-    PORTD ^= 0x0001;
+    for(int i=0; i<NoB; i++) {
+        if(cnt == 200) f[k] = x[k]; 
+        x[k] = *((&ADCBUF0) + i);
+        k++; if(k==NoO) k=0;
+    }
+    cnt++;
     IFS0 &= 0xF7FF;
 }
 
@@ -75,15 +81,19 @@ int main(void) {
     PORTC = 0x0000;
     PORTD = 0x0000;
     PORTF = 0x0000;
+    
+    for(int clr=0; clr<NoO;clr++) {
+        y[clr] = 0;
+        x[clr] = 0;
+        f[clr] = 0;
+    }
 
     inita2d();
     initPWMdac();     
     while (1) {
-	outf = 1;
-        y[m] = x[m];
-        m++
-        if (m==NoB) m=0;
-	outf = 0;
+        y[m] = x[m] +f[m];
+        m++;
+        if (m==NoO) m=0;
     }
     return 0;
 }
@@ -121,6 +131,7 @@ void initPWMdac(void) {
      IPC1 |=0x0500;
      IFS0 &= 0xFFBF;
      IEC0 |= 0x0040;
+     TRISD &= 0xFFFD;
      	 
      OC2RS = 0x0000; //Init PWM duty cycle to 0%
      OC2R = 0x0000;
