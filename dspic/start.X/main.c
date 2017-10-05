@@ -58,17 +58,19 @@ void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
     while(!(ADCON1&&0x0001));
     for(int i=0; i<NoB; i++) {
-        if(cnt == 200) f[k] = x[k]; 
+        if(cnt == 1000)
+            f[k] = x[k];
         x[k] = *((&ADCBUF0) + i);
         k++; if(k==NoO) k=0;
     }
-    cnt++;
+    cnt++; if(cnt>1000) cnt=0;
     IFS0 &= 0xF7FF;
 }
 
 
 int main(void) {
     int m=0;
+    YMODSRT = &(*y);
 //set all i/o to digital
     TRISA = 0x0000;
    TRISB = 0x0000;
@@ -91,7 +93,7 @@ int main(void) {
     inita2d();
     initPWMdac();     
     while (1) {
-        y[m] = x[m] +f[m];
+        y[m] = x[m];
         m++;
         if (m==NoO) m=0;
     }
