@@ -1,0 +1,39 @@
+ts9 circuit analysis
+.include ../include/diodes/1N4148.mod
+.include ../include/transistor/2sc1815.mod
+.include ../include/opamp/RC4558.mod
+
+Vpr   1  0 dc 9
+Vbu   2  0 dc 4.5
+
+vin   3  0 ac 1 sin(0 330m 665)
+
+cinb  3  4 .02u
+rinb  4  5 1k
+rbfi  2  5 510k 
+
+qbf   1  5  6 Q2SC1815
+
+rbfe  6  0 10k
+
+cind  6  7 1u
+rbfd  7  2 10k
+
+xdst  7  8  1 0 10 RC4558
+
+rfbk  8  9 51k
+rdsx  9 10 ~V DIST 1
+
+cfbk  8 10 51p
+dfwd  8 10 D1N4148
+drev 10  8 D1N4148
+
+clk   8 11 0.047u
+rlk  11  0 4.7k 
+
+.option acct
+.ac dec 10 20 20k //An
+.save v(3)
+.save v(10)
+~Ns
+.end 
