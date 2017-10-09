@@ -1,6 +1,6 @@
 klon circuit analysis
 .include ../include/opamp/TL072.mod
-.model 1N34A D(bv=75 cjo=0.5e-12 eg=0.67 ibv=18e-3 is=2e-7 rs=7 n=1.3 vj =0.1 m=0.27)
+.include ../include/diodes/1N34A.mod
 Vpr  1  0 dc 9
 Vbu  2  0 dc 4.5
 Vdb  3  0 dc 18
@@ -80,7 +80,7 @@ cot 29 31 4.7u
 rl  31  0 20k
 
 .option acct
-.tran .03ms 9ms 8ms//An
+.ac dec 10 20 20k //An
 .save v(4)
 .save v(31)
 ~Ns

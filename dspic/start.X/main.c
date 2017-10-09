@@ -11,8 +11,8 @@
 
 //LIMIT 16 DONT FUCK UP 
 #define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
-#define NoB 8
-#define NoO 8
+#define NoB 8 //ADC BUFFER
+#define NoO 8//IN/OUT DATA BUFFER
 //
 
 // DSPIC30F3014 Configuration Bit Settings
@@ -39,41 +39,38 @@
 
 void inita2d(void);
 void initPWMdac(void);
+extern void InpB(int, volatile int **);
+extern void W2OB(int, volatile int **);
+extern int R2OB(volatile int **);
 
-volatile int x[NoO];
-volatile int y[NoO];
-volatile int f[NoO];
-volatile int j=0;
-volatile int k=0;
-volatile int cnt=0;
-volatile char outf;
+
+volatile int __attribute__((address(0x0900))) * x  = (volatile int *) 0x0800;
+volatile int __attribute__((address(0x0902))) * y = (volatile int *) 0x0C00;
+volatile int __attribute__((address(0x0904))) * y0 = (volatile int *) 0x0C00;
+
+
 
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
+    OC2RS = R2OB(&y0);
+    
     IFS0 &= 0xFFBF;
-      OC2RS = y[j]>>4;
-      j++;
-      if (j==NoO) j=0;
 }
 
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
+    int temp=0; 
     while(!(ADCON1&&0x0001));
-    for(int i=0; i<NoB; i++) {
-        if(cnt == 1000)
-            f[k] = x[k];
-        x[k] = *((&ADCBUF0) + i);
-        k++; if(k==NoO) k=0;
+    for(int i=0;i<NoB; i++) {
+      temp = *((&ADCBUF0)+i);
+      InpB(temp,&x);
     }
-    cnt++; if(cnt>1000) cnt=0;
     IFS0 &= 0xF7FF;
 }
 
 
 int main(void) {
-    int m=0;
-    YMODSRT = &(*y);
 //set all i/o to digital
     TRISA = 0x0000;
-   TRISB = 0x0000;
+    TRISB = 0x0000;
     TRISC = 0x0000;
     TRISD = 0x0000;
     TRISF = 0x0000;
@@ -84,18 +81,22 @@ int main(void) {
     PORTD = 0x0000;
     PORTF = 0x0000;
     
-    for(int clr=0; clr<NoO;clr++) {
-        y[clr] = 0;
-        x[clr] = 0;
-        f[clr] = 0;
+    XMODSRT = (int) x;
+    XMODEND = ((int) x)+(NoO*2)-1;
+    YMODSRT = (int) y;
+    YMODEND = ((int) y)+(NoO*2)-1;
+    MODCON  = 0xC0BA;
+    for(int i=0; i<NoO; i++) {
+        InpB(0,&x);
+        W2OB(0,&y);
     }
-
+    asm ("nop");
+  
     inita2d();
-    initPWMdac();     
+    initPWMdac(); 
+   
     while (1) {
-        y[m] = x[m];
-        m++;
-        if (m==NoO) m=0;
+    W2OB((*x)>>4,&y); 
     }
     return 0;
 }
