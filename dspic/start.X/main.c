@@ -11,8 +11,8 @@
 
 //LIMIT 16 DONT FUCK UP 
 #define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
-#define NoB 8 //ADC BUFFER
-#define NoO 8//IN/OUT DATA BUFFER
+#define NoB 16 //ADC BUFFER
+#define NoO 64//IN/OUT DATA BUFFER
 //
 
 // DSPIC30F3014 Configuration Bit Settings
@@ -45,14 +45,12 @@ extern int R2OB(volatile int **);
 
 
 volatile int __attribute__((address(0x0900))) * x  = (volatile int *) 0x0800;
-volatile int __attribute__((address(0x0902))) * y = (volatile int *) 0x0C00;
-volatile int __attribute__((address(0x0904))) * y0 = (volatile int *) 0x0C00;
-
-
+//volatile int __attribute__((address(0x0902))) * y = (volatile int *) 0x0C00;
+volatile int __attribute__((address(0x0906))) * xo = (volatile int *) 0x0800;
+volatile int y = 0;
 
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
-    OC2RS = R2OB(&y0);
-    
+    OC2RS = y;  
     IFS0 &= 0xFFBF;
 }
 
@@ -86,17 +84,16 @@ int main(void) {
     YMODSRT = (int) y;
     YMODEND = ((int) y)+(NoO*2)-1;
     MODCON  = 0xC0BA;
+    asm ("nop");
     for(int i=0; i<NoO; i++) {
         InpB(0,&x);
-        W2OB(0,&y);
     }
-    asm ("nop");
   
     inita2d();
     initPWMdac(); 
    
     while (1) {
-    W2OB((*x)>>4,&y); 
+        y = (R2OB(&xo)) >>4;
     }
     return 0;
 }
@@ -109,7 +106,7 @@ void inita2d(void) {
     ADCON1 = 0x0000; //ADON = 0    
 
     ADCON1 = 0x00E4; //Auto sampling/Auto Conversion;
-    ADCON2 = 0x0000;
+    ADCON2 = 0x00000;   
     NUMoBUF(NoB);
     ADCON3 = 0x0129; //set sampling rate to 95Khz
     ADCHS  = 0x000c; //Assign AN12 to chanel A
