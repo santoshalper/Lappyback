@@ -5,15 +5,8 @@
  * Created on August 7, 2017, 4:20 PM
  */
 
-
 #include "xc.h"
-#include <libpic30.h>
-
-//LIMIT 16 DONT FUCK UP 
-#define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
-#define NoB 16 //ADC BUFFER
-#define NoO 64//IN/OUT DATA BUFFER
-//
+#include "proj.h"
 
 // DSPIC30F3014 Configuration Bit Settings
 // 'C' source line config statements
@@ -37,179 +30,58 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-void inita2d(void);
-void initPWMdac(void);
-extern void InpB(int, volatile int **);
-extern void W2OB(int, volatile int **);
-extern int R2OB(volatile int **);
+#define X_B  0x0A00
+#define FDB  0x0B00
+#define Y_B  0x0C00
 
+#define DEL 32//<NoO
+#define GAIN (1/2)
+#define FDG  (1/2)
+//
 
-volatile int __attribute__((address(0x0900))) * x  = (volatile int *) 0x0800;
-//volatile int __attribute__((address(0x0902))) * y = (volatile int *) 0x0C00;
-volatile int __attribute__((address(0x0906))) * xo = (volatile int *) 0x0800;
-volatile int y = 0;
+volatile int __attribute__((address(0x0800))) * x  = (volatile int *) X_B;
+volatile int __attribute__((address(0x0802))) * xo = (volatile int *) X_B;
+volatile int __attribute__((address(0x0804))) * f  = (volatile int *) FDB;
+volatile int __attribute__((address(0x0806))) * fo = (volatile int *) FDB;
+volatile int __attribute__((address(0x0808))) * y  = (volatile int *) Y_B;
+volatile int __attribute__((address(0x080A))) * yo = (volatile int *) Y_B;
 
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
-    OC2RS = y;  
+    OC2RS = rbyteBuff(yo);
     IFS0 &= 0xFFBF;
 }
 
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
-    int temp=0; 
+    int temp=0;
+    volatile int lastModB;
     while(!(ADCON1&&0x0001));
+    lastModB = XMODSRT;
+    setXMOD(X_B);
     for(int i=0;i<NoB; i++) {
-      temp = *((&ADCBUF0)+i);
-      InpB(temp,&x);
+      temp = *((&ADCBUF0)+i) >> 4;
+      W2XS(temp,&x);
     }
+    setXMOD(lastModB);	
     IFS0 &= 0xF7FF;
 }
 
 
-int main(void) {
-//set all i/o to digital
-    TRISA = 0x0000;
-    TRISB = 0x0000;
-    TRISC = 0x0000;
-    TRISD = 0x0000;
-    TRISF = 0x0000;
-    
-    PORTA = 0x0000;
-    PORTB = 0x0000;
-    PORTC = 0x0000;
-    PORTD = 0x0000;
-    PORTF = 0x0000;
-    
-    XMODSRT = (int) x;
-    XMODEND = ((int) x)+(NoO*2)-1;
-    YMODSRT = (int) y;
-    YMODEND = ((int) y)+(NoO*2)-1;
-    MODCON  = 0xC0BA;
-    asm ("nop");
-    for(int i=0; i<NoO; i++) {
-        InpB(0,&x);
-    }
-  
+int main(void) { 
+    int currIn,currFeed,currOut = 0;
+    clearIO();
+    initModBuff(x,y,10,11);   
+    f = f + DEL;
+    clearBuff(f);
     inita2d();
     initPWMdac(); 
    
     while (1) {
-        y = (R2OB(&xo)) >>4;
+        currIn   = rbyteBuff(xo);
+        currFeed = rbyteBuff(fo);
+        currOut  = currIn + GAIN*currFeed;
+        currFeed = currIn + FBG *currFeed;
+        wbyteBuff(currOut,y);
+        wbyteBuff(currFeed,f);
     }
     return 0;
 }
-
-
-void inita2d(void) {
-
-    TRISB |= 0x1000; // Rb12/AN12 set to input  
-
-    ADCON1 = 0x0000; //ADON = 0    
-
-    ADCON1 = 0x00E4; //Auto sampling/Auto Conversion;
-    ADCON2 = 0x00000;   
-    NUMoBUF(NoB);
-    ADCON3 = 0x0129; //set sampling rate to 95Khz
-    ADCHS  = 0x000c; //Assign AN12 to chanel A
-    ADPCFG = 0x0FFF; //RB12/AN12 set to analog in
-    ADCSSL = 0x0000; //Not Doing Scan In. 	
-
-//Clear I/O ports pre activation
-    PORTB = 0x0000;
-      
-    IPC2 |= 0X6000; 
-    IFS0 &= 0xF7FF;
-    IEC0 |= 0x0800; //adc int set
-
-
-    ADCON1 |= 0x8000; //turn on adc
-} 
-
-void initPWMdac(void) {   
-     OC2CON = 0x0006; //PWM MODE No fault protection TMR2 Selected
-     T2CON = 0x0000;
-     PR2 = 0x00FF;
-     IPC1 |=0x0500;
-     IFS0 &= 0xFFBF;
-     IEC0 |= 0x0040;
-     TRISD &= 0xFFFD;
-     	 
-     OC2RS = 0x0000; //Init PWM duty cycle to 0%
-     OC2R = 0x0000;
-     T2CON |= 0x8000;
-}
-
-
-              
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

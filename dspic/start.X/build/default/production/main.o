@@ -1,0 +1,1464 @@
+	.file "/home/vijay/repos/Lappyback/dspic/start.X/main.c"
+	.section	.debug_abbrev,info
+.Ldebug_abbrev0:
+	.section	.debug_info,info
+.Ldebug_info0:
+	.section	.debug_line,info
+.Ldebug_line0:
+	.section	.text,code
+.Ltext0:
+	.section	.nbss,bss,near
+	.type	_x,@object
+	.global	_x
+	.align	2
+_x:	.space	16
+	.type	_y,@object
+	.global	_y
+	.align	2
+_y:	.space	16
+	.type	_f,@object
+	.global	_f
+	.align	2
+_f:	.space	16
+	.global	_j	; export
+	.align	2
+	.type	_j,@object
+	.size	_j, 2
+_j:
+	.skip	2
+	.global	_k	; export
+	.align	2
+	.type	_k,@object
+	.size	_k, 2
+_k:
+	.skip	2
+	.global	_cnt	; export
+	.align	2
+	.type	_cnt,@object
+	.size	_cnt, 2
+_cnt:
+	.skip	2
+	.type	_outf,@object
+	.global	_outf
+_outf:	.space	1
+	.section	.isr.text,code,keep
+	.align	2
+	.global	__T2Interrupt	; export
+	.type	__T2Interrupt,@function
+__T2Interrupt:
+	.section	.isr.text,code,keep
+.LFB0:
+	.file 1 "main.c"
+	.section	.isr.text,code,keep
+	.loc 1 51 0
+	.set ___PA___,1
+	mov.d	w0,[w15++]
+.LCFI0:
+	push	_PSVPAG
+.LCFI1:
+	mov	#__const_psvpage,w0
+	mov	w0,_PSVPAG
+	lnk	#0
+.LCFI2:
+	.section	.isr.text,code,keep
+	.loc 1 52 0
+	mov	_IFS0,w0
+	bclr	w0,#6
+	mov	w0,_IFS0
+	.section	.isr.text,code,keep
+	.loc 1 53 0
+	mov	_j,w0
+	add	w0,w0,w1
+	mov	#_y,w0
+	add	w1,w0,w0
+	mov	[w0],w0
+	asr	w0,#4,w0
+	mov	w0,_OC2RS
+	.section	.isr.text,code,keep
+	.loc 1 54 0
+	mov	_j,w0
+	inc	w0,w0
+	mov	w0,_j
+	.section	.isr.text,code,keep
+	.loc 1 55 0
+	mov	_j,w0
+	sub	w0,#8,[w15]
+	.set ___BP___,0
+	bra	nz,.L1
+	clr	_j
+.L1:
+	.section	.isr.text,code,keep
+	.loc 1 56 0
+	ulnk	
+	pop	_PSVPAG
+	mov.d	[--w15],w0
+	retfie	
+	.set ___PA___,0
+.LFE0:
+	.size	__T2Interrupt, .-__T2Interrupt
+	.section	.isr.text,code,keep
+	.align	2
+	.global	__ADCInterrupt	; export
+	.type	__ADCInterrupt,@function
+__ADCInterrupt:
+	.section	.isr.text,code,keep
+.LFB1:
+	.section	.isr.text,code,keep
+	.loc 1 58 0
+	.set ___PA___,1
+	mov.d	w0,[w15++]
+.LCFI3:
+	mov	w2,[w15++]
+.LCFI4:
+	push	_PSVPAG
+.LCFI5:
+	mov	#__const_psvpage,w0
+	mov	w0,_PSVPAG
+	lnk	#2
+.LCFI6:
+	.section	.isr.text,code,keep
+	.loc 1 59 0
+	nop	
+.L4:
+	mov	_ADCON1,w0
+	cp0	w0
+	.set ___BP___,0
+	bra	z,.L4
+	.section	.isr.text,code,keep
+.LBB2:
+	.section	.isr.text,code,keep
+	.loc 1 60 0
+	clr	w0
+	mov	w0,[w14]
+	bra	.L5
+.L8:
+	.section	.isr.text,code,keep
+	.loc 1 61 0
+	mov	_cnt,w1
+	mov	#1000,w0
+	sub	w1,w0,[w15]
+	.set ___BP___,0
+	bra	nz,.L6
+	.section	.isr.text,code,keep
+	.loc 1 62 0
+	mov	_k,w0
+	mov	_k,w1
+	add	w1,w1,w2
+	mov	#_x,w1
+	add	w2,w1,w1
+	mov	[w1],w1
+	add	w0,w0,w2
+	mov	#_f,w0
+	add	w2,w0,w0
+	mov	w1,[w0]
+.L6:
+	.section	.isr.text,code,keep
+	.loc 1 63 0
+	mov	_k,w0
+	mov	[w14],w1
+	add	w1,w1,w1
+	mov	w1,w2
+	mov	#_ADCBUF0,w1
+	add	w2,w1,w1
+	mov	[w1],w1
+	add	w0,w0,w2
+	mov	#_x,w0
+	add	w2,w0,w0
+	mov	w1,[w0]
+	.section	.isr.text,code,keep
+	.loc 1 64 0
+	mov	_k,w0
+	inc	w0,w0
+	mov	w0,_k
+	mov	_k,w0
+	sub	w0,#8,[w15]
+	.set ___BP___,0
+	bra	nz,.L7
+	clr	_k
+.L7:
+	.section	.isr.text,code,keep
+	.loc 1 60 0
+	inc	[w14],[w14]
+.L5:
+	mov	[w14],w0
+	sub	w0,#7,[w15]
+	.set ___BP___,0
+	bra	le,.L8
+	.section	.isr.text,code,keep
+.LBE2:
+	.section	.isr.text,code,keep
+	.loc 1 66 0
+	mov	_cnt,w0
+	inc	w0,w0
+	mov	w0,_cnt
+	mov	_cnt,w1
+	mov	#1000,w0
+	sub	w1,w0,[w15]
+	.set ___BP___,0
+	bra	le,.L9
+	clr	_cnt
+.L9:
+	.section	.isr.text,code,keep
+	.loc 1 67 0
+	mov	_IFS0,w0
+	bclr	w0,#11
+	mov	w0,_IFS0
+	.section	.isr.text,code,keep
+	.loc 1 68 0
+	ulnk	
+	pop	_PSVPAG
+	mov	[--w15],w2
+	mov.d	[--w15],w0
+	retfie	
+	.set ___PA___,0
+.LFE1:
+	.size	__ADCInterrupt, .-__ADCInterrupt
+	.section	.text,code
+	.align	2
+	.global	_main	; export
+	.type	_main,@function
+_main:
+.LFB2:
+	.loc 1 71 0
+	.set ___PA___,1
+	lnk	#4
+.LCFI7:
+	.loc 1 72 0
+	clr	w0
+	mov	w0,[w14]
+	.loc 1 73 0
+	mov	#_y,w0
+	mov	w0,_YMODSRT
+	.loc 1 75 0
+	clr	_TRISA
+	.loc 1 76 0
+	clr	_TRISB
+	.loc 1 77 0
+	clr	_TRISC
+	.loc 1 78 0
+	clr	_TRISD
+	.loc 1 79 0
+	clr	_TRISF
+	.loc 1 81 0
+	clr	_PORTA
+	.loc 1 82 0
+	clr	_PORTB
+	.loc 1 83 0
+	clr	_PORTC
+	.loc 1 84 0
+	clr	_PORTD
+	.loc 1 85 0
+	clr	_PORTF
+.LBB3:
+	.loc 1 87 0
+	clr	w0
+	mov	w0,[w14+2]
+	bra	.L11
+.L12:
+	.loc 1 88 0
+	mov	[w14+2],w0
+	add	w0,w0,w1
+	mov	#_y,w0
+	add	w1,w0,w0
+	clr	w1
+	mov	w1,[w0]
+	.loc 1 89 0
+	mov	[w14+2],w0
+	add	w0,w0,w1
+	mov	#_x,w0
+	add	w1,w0,w0
+	clr	w1
+	mov	w1,[w0]
+	.loc 1 90 0
+	mov	[w14+2],w0
+	add	w0,w0,w1
+	mov	#_f,w0
+	add	w1,w0,w0
+	clr	w1
+	mov	w1,[w0]
+	.loc 1 87 0
+	mov	[w14+2],w0
+	inc	w0,w0
+	mov	w0,[w14+2]
+.L11:
+	mov	[w14+2],w0
+	sub	w0,#7,[w15]
+	.set ___BP___,0
+	bra	le,.L12
+.LBE3:
+	.loc 1 93 0
+	rcall	_inita2d
+	.loc 1 94 0
+	rcall	_initPWMdac
+	bra	.L14
+.L15:
+	.loc 1 99 0
+	nop	
+.L14:
+	.loc 1 96 0
+	mov	[w14],w0
+	add	w0,w0,w1
+	mov	#_x,w0
+	add	w1,w0,w0
+	mov	[w0],w1
+	mov	[w14],w0
+	add	w0,w0,w2
+	mov	#_y,w0
+	add	w2,w0,w0
+	mov	w1,[w0]
+	.loc 1 97 0
+	inc	[w14],[w14]
+	.loc 1 98 0
+	mov	[w14],w0
+	sub	w0,#8,[w15]
+	.set ___BP___,0
+	bra	nz,.L15
+	clr	w0
+	mov	w0,[w14]
+	.loc 1 99 0
+	bra	.L14
+.LFE2:
+	.size	_main, .-_main
+	.align	2
+	.global	_inita2d	; export
+	.type	_inita2d,@function
+_inita2d:
+.LFB3:
+	.loc 1 104 0
+	.set ___PA___,1
+	lnk	#0
+.LCFI8:
+	.loc 1 106 0
+	mov	_TRISB,w0
+	bset	w0,#12
+	mov	w0,_TRISB
+	.loc 1 108 0
+	clr	_ADCON1
+	.loc 1 110 0
+	mov	#228,w0
+	mov	w0,_ADCON1
+	.loc 1 111 0
+	clr	_ADCON2
+	.loc 1 112 0
+	mov	_ADCON2,w0
+	ior	#28,w0
+	mov	w0,_ADCON2
+	.loc 1 113 0
+	mov	#297,w0
+	mov	w0,_ADCON3
+	.loc 1 114 0
+	mov	#12,w0
+	mov	w0,_ADCHS
+	.loc 1 115 0
+	mov	#4095,w0
+	mov	w0,_ADPCFG
+	.loc 1 116 0
+	clr	_ADCSSL
+	.loc 1 119 0
+	clr	_PORTB
+	.loc 1 121 0
+	mov	_IPC2,w1
+	mov	#24576,w0
+	ior	w0,w1,w0
+	mov	w0,_IPC2
+	.loc 1 122 0
+	mov	_IFS0,w0
+	bclr	w0,#11
+	mov	w0,_IFS0
+	.loc 1 123 0
+	mov	_IEC0,w0
+	bset	w0,#11
+	mov	w0,_IEC0
+	.loc 1 126 0
+	mov	_ADCON1,w1
+	mov	#-32768,w0
+	ior	w0,w1,w0
+	mov	w0,_ADCON1
+	.loc 1 127 0
+	ulnk	
+	return	
+	.set ___PA___,0
+.LFE3:
+	.size	_inita2d, .-_inita2d
+	.align	2
+	.global	_initPWMdac	; export
+	.type	_initPWMdac,@function
+_initPWMdac:
+.LFB4:
+	.loc 1 129 0
+	.set ___PA___,1
+	lnk	#0
+.LCFI9:
+	.loc 1 130 0
+	mov	#6,w0
+	mov	w0,_OC2CON
+	.loc 1 131 0
+	clr	_T2CON
+	.loc 1 132 0
+	mov	#255,w0
+	mov	w0,_PR2
+	.loc 1 133 0
+	mov	_IPC1,w1
+	mov	#1280,w0
+	ior	w0,w1,w0
+	mov	w0,_IPC1
+	.loc 1 134 0
+	mov	_IFS0,w0
+	bclr	w0,#6
+	mov	w0,_IFS0
+	.loc 1 135 0
+	mov	_IEC0,w0
+	bset	w0,#6
+	mov	w0,_IEC0
+	.loc 1 136 0
+	mov	_TRISD,w0
+	bclr	w0,#1
+	mov	w0,_TRISD
+	.loc 1 138 0
+	clr	_OC2RS
+	.loc 1 139 0
+	clr	_OC2R
+	.loc 1 140 0
+	mov	_T2CON,w1
+	mov	#-32768,w0
+	ior	w0,w1,w0
+	mov	w0,_T2CON
+	.loc 1 141 0
+	ulnk	
+	return	
+	.set ___PA___,0
+.LFE4:
+	.size	_initPWMdac, .-_initPWMdac
+	.section	.debug_frame,info
+.Lframe0:
+	.4byte	.LECIE0-.LSCIE0
+.LSCIE0:
+	.4byte	0xffffffff
+	.byte	0x1
+	.byte	0
+	.uleb128 0x1
+	.sleb128 2
+	.byte	0x25
+	.byte	0x12
+	.uleb128 0xf
+	.sleb128 -2
+	.byte	0x9
+	.uleb128 0x25
+	.uleb128 0xf
+	.align	4
+.LECIE0:
+.LSFDE0:
+	.4byte	.LEFDE0-.LASFDE0
+.LASFDE0:
+	.4byte	.Lframe0
+	.4byte	.LFB0
+	.4byte	.LFE0-.LFB0
+	.byte	0x4
+	.4byte	.LCFI0-.LFB0
+	.byte	0x13
+	.sleb128 -4
+	.byte	0x4
+	.4byte	.LCFI1-.LCFI0
+	.byte	0x80
+	.uleb128 0x2
+	.byte	0x4
+	.4byte	.LCFI2-.LCFI1
+	.byte	0x13
+	.sleb128 -6
+	.byte	0xd
+	.uleb128 0xe
+	.byte	0x8e
+	.uleb128 0x5
+	.align	4
+.LEFDE0:
+.LSFDE2:
+	.4byte	.LEFDE2-.LASFDE2
+.LASFDE2:
+	.4byte	.Lframe0
+	.4byte	.LFB1
+	.4byte	.LFE1-.LFB1
+	.byte	0x4
+	.4byte	.LCFI3-.LFB1
+	.byte	0x13
+	.sleb128 -4
+	.byte	0x4
+	.4byte	.LCFI4-.LCFI3
+	.byte	0x13
+	.sleb128 -5
+	.byte	0x4
+	.4byte	.LCFI5-.LCFI4
+	.byte	0x82
+	.uleb128 0x4
+	.byte	0x80
+	.uleb128 0x2
+	.byte	0x4
+	.4byte	.LCFI6-.LCFI5
+	.byte	0x13
+	.sleb128 -7
+	.byte	0xd
+	.uleb128 0xe
+	.byte	0x8e
+	.uleb128 0x6
+	.align	4
+.LEFDE2:
+.LSFDE4:
+	.4byte	.LEFDE4-.LASFDE4
+.LASFDE4:
+	.4byte	.Lframe0
+	.4byte	.LFB2
+	.4byte	.LFE2-.LFB2
+	.byte	0x4
+	.4byte	.LCFI7-.LFB2
+	.byte	0x13
+	.sleb128 -3
+	.byte	0xd
+	.uleb128 0xe
+	.byte	0x8e
+	.uleb128 0x2
+	.align	4
+.LEFDE4:
+.LSFDE6:
+	.4byte	.LEFDE6-.LASFDE6
+.LASFDE6:
+	.4byte	.Lframe0
+	.4byte	.LFB3
+	.4byte	.LFE3-.LFB3
+	.byte	0x4
+	.4byte	.LCFI8-.LFB3
+	.byte	0x13
+	.sleb128 -3
+	.byte	0xd
+	.uleb128 0xe
+	.byte	0x8e
+	.uleb128 0x2
+	.align	4
+.LEFDE6:
+.LSFDE8:
+	.4byte	.LEFDE8-.LASFDE8
+.LASFDE8:
+	.4byte	.Lframe0
+	.4byte	.LFB4
+	.4byte	.LFE4-.LFB4
+	.byte	0x4
+	.4byte	.LCFI9-.LFB4
+	.byte	0x13
+	.sleb128 -3
+	.byte	0xd
+	.uleb128 0xe
+	.byte	0x8e
+	.uleb128 0x2
+	.align	4
+.LEFDE8:
+	.section	.text,code
+.Letext0:
+	.file 2 "/opt/microchip/xc16/v1.32/bin/bin/../../support/dsPIC30F/h/p30F3014.h"
+	.section	.debug_info,info
+	.4byte	0x5ec
+	.2byte	0x2
+	.4byte	.Ldebug_abbrev0
+	.byte	0x4
+	.uleb128 0x1
+	.asciz	"GNU C 4.5.1 (XC16, Microchip v1.32) (B) Build date: Aug 15 2017"
+	.byte	0x1
+	.asciz	"main.c"
+	.asciz	"/home/vijay/repos/Lappyback/dspic/start.X"
+	.4byte	.Ltext0
+	.4byte	.Letext0
+	.4byte	.Ldebug_line0
+	.uleb128 0x2
+	.byte	0x2
+	.byte	0x7
+	.asciz	"unsigned int"
+	.uleb128 0x2
+	.byte	0x1
+	.byte	0x8
+	.asciz	"unsigned char"
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x7
+	.asciz	"long unsigned int"
+	.uleb128 0x3
+	.byte	0x1
+	.asciz	"_T2Interrupt"
+	.byte	0x1
+	.byte	0x33
+	.byte	0x1
+	.4byte	.LFB0
+	.4byte	.LFE0
+	.byte	0x1
+	.byte	0x5e
+	.uleb128 0x4
+	.byte	0x1
+	.asciz	"_ADCInterrupt"
+	.byte	0x1
+	.byte	0x3a
+	.byte	0x1
+	.4byte	.LFB1
+	.4byte	.LFE1
+	.byte	0x1
+	.byte	0x5e
+	.4byte	0x114
+	.uleb128 0x5
+	.4byte	.LBB2
+	.4byte	.LBE2
+	.uleb128 0x6
+	.asciz	"i"
+	.byte	0x1
+	.byte	0x3c
+	.4byte	0x114
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x2
+	.byte	0x2
+	.byte	0x5
+	.asciz	"int"
+	.uleb128 0x7
+	.byte	0x1
+	.asciz	"main"
+	.byte	0x1
+	.byte	0x47
+	.byte	0x1
+	.4byte	0x114
+	.4byte	.LFB2
+	.4byte	.LFE2
+	.byte	0x1
+	.byte	0x5e
+	.4byte	0x15c
+	.uleb128 0x6
+	.asciz	"m"
+	.byte	0x1
+	.byte	0x48
+	.4byte	0x114
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
+	.uleb128 0x5
+	.4byte	.LBB3
+	.4byte	.LBE3
+	.uleb128 0x6
+	.asciz	"clr"
+	.byte	0x1
+	.byte	0x57
+	.4byte	0x114
+	.byte	0x2
+	.byte	0x7e
+	.sleb128 2
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x3
+	.byte	0x1
+	.asciz	"inita2d"
+	.byte	0x1
+	.byte	0x68
+	.byte	0x1
+	.4byte	.LFB3
+	.4byte	.LFE3
+	.byte	0x1
+	.byte	0x5e
+	.uleb128 0x3
+	.byte	0x1
+	.asciz	"initPWMdac"
+	.byte	0x1
+	.byte	0x81
+	.byte	0x1
+	.4byte	.LFB4
+	.4byte	.LFE4
+	.byte	0x1
+	.byte	0x5e
+	.uleb128 0x8
+	.asciz	"YMODSRT"
+	.byte	0x2
+	.byte	0xe1
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x9
+	.4byte	0x8a
+	.uleb128 0xa
+	.asciz	"IFS0"
+	.byte	0x2
+	.2byte	0x126
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IEC0"
+	.byte	0x2
+	.2byte	0x14f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IPC1"
+	.byte	0x2
+	.2byte	0x19a
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IPC2"
+	.byte	0x2
+	.2byte	0x1bc
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PR2"
+	.byte	0x2
+	.2byte	0x2b9
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"T2CON"
+	.byte	0x2
+	.2byte	0x2bd
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"OC2RS"
+	.byte	0x2
+	.2byte	0x35f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"OC2R"
+	.byte	0x2
+	.2byte	0x361
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"OC2CON"
+	.byte	0x2
+	.2byte	0x363
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCBUF0"
+	.byte	0x2
+	.2byte	0x4ff
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCON1"
+	.byte	0x2
+	.2byte	0x51f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCON2"
+	.byte	0x2
+	.2byte	0x53b
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCON3"
+	.byte	0x2
+	.2byte	0x559
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCHS"
+	.byte	0x2
+	.2byte	0x575
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADPCFG"
+	.byte	0x2
+	.2byte	0x58f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCSSL"
+	.byte	0x2
+	.2byte	0x5a5
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISA"
+	.byte	0x2
+	.2byte	0x5bb
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTA"
+	.byte	0x2
+	.2byte	0x5c3
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISB"
+	.byte	0x2
+	.2byte	0x5d3
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTB"
+	.byte	0x2
+	.2byte	0x5e6
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISC"
+	.byte	0x2
+	.2byte	0x60c
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTC"
+	.byte	0x2
+	.2byte	0x616
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISD"
+	.byte	0x2
+	.2byte	0x62a
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTD"
+	.byte	0x2
+	.2byte	0x637
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISF"
+	.byte	0x2
+	.2byte	0x651
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTF"
+	.byte	0x2
+	.2byte	0x65e
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xb
+	.4byte	0x114
+	.4byte	0x354
+	.uleb128 0xc
+	.4byte	0x8a
+	.byte	0x7
+	.byte	0x0
+	.uleb128 0x8
+	.asciz	"x"
+	.byte	0x1
+	.byte	0x2b
+	.4byte	0x35f
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x9
+	.4byte	0x344
+	.uleb128 0x8
+	.asciz	"y"
+	.byte	0x1
+	.byte	0x2c
+	.4byte	0x36f
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x9
+	.4byte	0x344
+	.uleb128 0x8
+	.asciz	"f"
+	.byte	0x1
+	.byte	0x2d
+	.4byte	0x37f
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x9
+	.4byte	0x344
+	.uleb128 0x8
+	.asciz	"j"
+	.byte	0x1
+	.byte	0x2e
+	.4byte	0x38f
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x9
+	.4byte	0x114
+	.uleb128 0x8
+	.asciz	"k"
+	.byte	0x1
+	.byte	0x2f
+	.4byte	0x38f
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x8
+	.asciz	"cnt"
+	.byte	0x1
+	.byte	0x30
+	.4byte	0x38f
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x8
+	.asciz	"YMODSRT"
+	.byte	0x2
+	.byte	0xe1
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IFS0"
+	.byte	0x2
+	.2byte	0x126
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IEC0"
+	.byte	0x2
+	.2byte	0x14f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IPC1"
+	.byte	0x2
+	.2byte	0x19a
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"IPC2"
+	.byte	0x2
+	.2byte	0x1bc
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PR2"
+	.byte	0x2
+	.2byte	0x2b9
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"T2CON"
+	.byte	0x2
+	.2byte	0x2bd
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"OC2RS"
+	.byte	0x2
+	.2byte	0x35f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"OC2R"
+	.byte	0x2
+	.2byte	0x361
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"OC2CON"
+	.byte	0x2
+	.2byte	0x363
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCBUF0"
+	.byte	0x2
+	.2byte	0x4ff
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCON1"
+	.byte	0x2
+	.2byte	0x51f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCON2"
+	.byte	0x2
+	.2byte	0x53b
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCON3"
+	.byte	0x2
+	.2byte	0x559
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCHS"
+	.byte	0x2
+	.2byte	0x575
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADPCFG"
+	.byte	0x2
+	.2byte	0x58f
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"ADCSSL"
+	.byte	0x2
+	.2byte	0x5a5
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISA"
+	.byte	0x2
+	.2byte	0x5bb
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTA"
+	.byte	0x2
+	.2byte	0x5c3
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISB"
+	.byte	0x2
+	.2byte	0x5d3
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTB"
+	.byte	0x2
+	.2byte	0x5e6
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISC"
+	.byte	0x2
+	.2byte	0x60c
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTC"
+	.byte	0x2
+	.2byte	0x616
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISD"
+	.byte	0x2
+	.2byte	0x62a
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTD"
+	.byte	0x2
+	.2byte	0x637
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"TRISF"
+	.byte	0x2
+	.2byte	0x651
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xa
+	.asciz	"PORTF"
+	.byte	0x2
+	.2byte	0x65e
+	.4byte	0x19e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xd
+	.asciz	"x"
+	.byte	0x1
+	.byte	0x2b
+	.4byte	0x56e
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_x
+	.uleb128 0x9
+	.4byte	0x344
+	.uleb128 0xd
+	.asciz	"y"
+	.byte	0x1
+	.byte	0x2c
+	.4byte	0x583
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_y
+	.uleb128 0x9
+	.4byte	0x344
+	.uleb128 0xd
+	.asciz	"f"
+	.byte	0x1
+	.byte	0x2d
+	.4byte	0x598
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_f
+	.uleb128 0x9
+	.4byte	0x344
+	.uleb128 0xd
+	.asciz	"j"
+	.byte	0x1
+	.byte	0x2e
+	.4byte	0x38f
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_j
+	.uleb128 0xd
+	.asciz	"k"
+	.byte	0x1
+	.byte	0x2f
+	.4byte	0x38f
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_k
+	.uleb128 0xd
+	.asciz	"cnt"
+	.byte	0x1
+	.byte	0x30
+	.4byte	0x38f
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_cnt
+	.uleb128 0xd
+	.asciz	"outf"
+	.byte	0x1
+	.byte	0x31
+	.4byte	0x5e2
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.4byte	_outf
+	.uleb128 0x9
+	.4byte	0x5e7
+	.uleb128 0x2
+	.byte	0x1
+	.byte	0x6
+	.asciz	"char"
+	.byte	0x0
+	.section	.debug_abbrev,info
+	.uleb128 0x1
+	.uleb128 0x11
+	.byte	0x1
+	.uleb128 0x25
+	.uleb128 0x8
+	.uleb128 0x13
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x1b
+	.uleb128 0x8
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x10
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x2
+	.uleb128 0x24
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x2e
+	.byte	0x0
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x4
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x5
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x6
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x7
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x8
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3c
+	.uleb128 0xc
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x9
+	.uleb128 0x35
+	.byte	0x0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xa
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3c
+	.uleb128 0xc
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0x1
+	.byte	0x1
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xc
+	.uleb128 0x21
+	.byte	0x0
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2f
+	.uleb128 0xb
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xd
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x2
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.section	.debug_pubnames,info
+	.4byte	0x84
+	.2byte	0x2
+	.4byte	.Ldebug_info0
+	.4byte	0x5f0
+	.4byte	0xc0
+	.asciz	"_T2Interrupt"
+	.4byte	0xdc
+	.asciz	"_ADCInterrupt"
+	.4byte	0x11b
+	.asciz	"main"
+	.4byte	0x15c
+	.asciz	"inita2d"
+	.4byte	0x173
+	.asciz	"initPWMdac"
+	.4byte	0x55e
+	.asciz	"x"
+	.4byte	0x573
+	.asciz	"y"
+	.4byte	0x588
+	.asciz	"f"
+	.4byte	0x59d
+	.asciz	"j"
+	.4byte	0x5ad
+	.asciz	"k"
+	.4byte	0x5bd
+	.asciz	"cnt"
+	.4byte	0x5cf
+	.asciz	"outf"
+	.4byte	0x0
+	.section	.debug_pubtypes,info
+	.4byte	0xe
+	.2byte	0x2
+	.4byte	.Ldebug_info0
+	.4byte	0x5f0
+	.4byte	0x0
+	.section	.debug_aranges,info
+	.4byte	0x14
+	.2byte	0x2
+	.4byte	.Ldebug_info0
+	.byte	0x4
+	.byte	0x0
+	.2byte	0x0
+	.2byte	0x0
+	.4byte	0x0
+	.4byte	0x0
+	.section	.debug_str,info
+	.section	.text,code
+
+
+
+	.section __c30_signature, info, data
+	.word 0x0001
+	.word 0x0000
+	.word 0x0000
+
+; MCHP configuration words
+; Configuration word @ 0x00f8000c
+	.section	.config_ICS, code, address(0xf8000c), keep
+__config_ICS:
+	.pword	65535
+; Configuration word @ 0x00f8000a
+	.section	.config_GCP, code, address(0xf8000a), keep
+__config_GCP:
+	.pword	65535
+; Configuration word @ 0x00f80004
+	.section	.config_MCLRE, code, address(0xf80004), keep
+__config_MCLRE:
+	.pword	65535
+; Configuration word @ 0x00f80002
+	.section	.config_WDT, code, address(0xf80002), keep
+__config_WDT:
+	.pword	32767
+; Configuration word @ 0x00f80000
+	.section	.config_FCKSMEN, code, address(0xf80000), keep
+__config_FCKSMEN:
+	.pword	49123
+
+	.set ___PA___,0
+	.end
