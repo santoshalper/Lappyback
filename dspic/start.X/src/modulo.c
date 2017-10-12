@@ -1,7 +1,9 @@
 #include "xc.h"
-#include "proj.h"
+#include "../include/proj.h"
+
+int __attribute__((address(0x090C))) modflag = 0;
 void initModBuff(volatile int * xi, volatile int * yi, int RegX, int RegY) {
-    int mask = 0xC000
+    int mask = 0xC000;
     mask |= RegX;
     mask |= RegY<<4;
 
@@ -9,7 +11,7 @@ void initModBuff(volatile int * xi, volatile int * yi, int RegX, int RegY) {
     XMODEND = ((int) xi)+(NoO*2)-1;
     YMODSRT = (int) yi;
     YMODEND = ((int) yi)+(NoO*2)-1;
-    MODCON  = MASK;
+    MODCON  = mask;
     asm ("nop");
 
     for(int i=0; i<NoO; i++) {
@@ -18,28 +20,26 @@ void initModBuff(volatile int * xi, volatile int * yi, int RegX, int RegY) {
     }
 }
 void setXMOD(int buff) {
-	XMODSRT = buff;
-        XMODEND = buff + (NoO*2)-1;
-        asm ("nop");   
+    XMODSRT = (buff&0xF00);
+    XMODEND = (buff&0xF00) + (NoO*2)-1;
+    asm ("nop");   
 }
-void clearBuff(volatile int * buff) {
-	setXMOD((int) buff);
-        for(int i=0; i<NoO;i++)
-          W2XS(0,&buff);
+void clearBuff(volatile int ** buff) {
+	setXMOD((int) *buff);
+    for(int i=0; i<NoO;i++)
+       W2XS(0,buff);
 }
-void wbyteBuff(int val, volatile int * buff) {
-        volatile int lastModB;
-        lastModB = XMODSRT;
-	setXMOD((int) buff);
-        W2XS(val,&buff);
-        setXMOD(lastModB);
+void wbyteBuff(int val, volatile int ** buff) {
+	modflag = 1;
+    setXMOD((int) *buff);
+    W2XS(val,buff);
+    modflag = 0;
 }
-int  rbyteBuff(volatile int * buff) {
-        volatile int lastModB;
-        int temp;
-        lastModB = XMODSRT;
-	setXMOD((int) buff);
-        temp = RFXS(&buff);
-        setXMOD(lastModB);
-        return temp;
+int  rbyteBuff(volatile int ** buff) {
+     int temp;
+     modflag = 1;
+	 setXMOD((int) *buff);
+     temp = RFXS(buff);
+     modflag = 0;
+     return temp;
 }

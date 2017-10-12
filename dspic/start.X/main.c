@@ -6,7 +6,7 @@
  */
 
 #include "xc.h"
-#include "proj.h"
+#include "include/proj.h"
 
 // DSPIC30F3014 Configuration Bit Settings
 // 'C' source line config statements
@@ -35,53 +35,51 @@
 #define Y_B  0x0C00
 
 #define DEL 32//<NoO
-#define GAIN (1/2)
-#define FDG  (1/2)
+#define GAIN (1/4)
+#define FBG  (1/4)
 //
 
-volatile int __attribute__((address(0x0800))) * x  = (volatile int *) X_B;
-volatile int __attribute__((address(0x0802))) * xo = (volatile int *) X_B;
-volatile int __attribute__((address(0x0804))) * f  = (volatile int *) FDB;
-volatile int __attribute__((address(0x0806))) * fo = (volatile int *) FDB;
-volatile int __attribute__((address(0x0808))) * y  = (volatile int *) Y_B;
-volatile int __attribute__((address(0x080A))) * yo = (volatile int *) Y_B;
-
+volatile int __attribute__((address(0x0900))) * x  = (volatile int *) X_B;
+volatile int __attribute__((address(0x0902))) * xo = (volatile int *) X_B;
+volatile int __attribute__((address(0x0904))) * f  = (volatile int *) FDB;
+volatile int __attribute__((address(0x0906))) * fo = (volatile int *) FDB;
+volatile int __attribute__((address(0x0908))) * y  = (volatile int *) Y_B;
+volatile int __attribute__((address(0x090A))) * yo = (volatile int *) Y_B;
+volatile int currOut = 0;
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
-    OC2RS = rbyteBuff(yo);
-    IFS0 &= 0xFFBF;
+     OC2RS = currOut;
+     IFS0 &= 0xFFBF;
 }
 
 void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
     int temp=0;
-    volatile int lastModB;
-    while(!(ADCON1&&0x0001));
-    lastModB = XMODSRT;
-    setXMOD(X_B);
-    for(int i=0;i<NoB; i++) {
-      temp = *((&ADCBUF0)+i) >> 4;
-      W2XS(temp,&x);
-    }
-    setXMOD(lastModB);	
+    if(modflag == 0) {
+     while(!(ADCON1&&0x0001));
+     setXMOD(X_B);
+     for(int i=0;i<NoB; i++) {
+       temp = *((&ADCBUF0)+i) >> 4;
+       W2XS(temp,&x);
+     }
+    }	
     IFS0 &= 0xF7FF;
 }
 
 
 int main(void) { 
-    int currIn,currFeed,currOut = 0;
+    int currIn,currFeed = 0;
     clearIO();
-    initModBuff(x,y,10,11);   
+    initModBuff(x,y,10,11);
+    clearBuff(&f);
     f = f + DEL;
-    clearBuff(f);
     inita2d();
     initPWMdac(); 
    
     while (1) {
-        currIn   = rbyteBuff(xo);
-        currFeed = rbyteBuff(fo);
+        currIn   = rbyteBuff(&xo);
+        currFeed = rbyteBuff(&fo);
         currOut  = currIn + GAIN*currFeed;
         currFeed = currIn + FBG *currFeed;
-        wbyteBuff(currOut,y);
-        wbyteBuff(currFeed,f);
+        wbyteBuff(currFeed,&f);
     }
     return 0;
 }

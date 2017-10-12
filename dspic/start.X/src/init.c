@@ -1,5 +1,5 @@
 #include "xc.h"
-#include "proj.h"
+#include "../include/proj.h"
 
 void clearIO(void) {
 //set all i/o to digital
