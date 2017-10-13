@@ -7,7 +7,6 @@ extern void W2XS(int, volatile int **);
 extern int RFXS(volatile int **);
 extern void CLYS(volatile int **);
 
-extern int modflag;
 
 void inita2d(void);
 void initPWMdac(void);
