@@ -13,7 +13,7 @@ void inita2d(void);
 void initPWMdac(void);
 void clearIO(void);
 
-void initModBuff(volatile int *,volatile int *,int,int);
+void initXModBuff(volatile int **,int);
 void setXMOD(int);
 void clearBuff(volatile int **);
 void wbyteBuff(int,volatile int **);

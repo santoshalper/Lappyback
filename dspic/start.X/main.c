@@ -30,18 +30,18 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-#define X_B  0x0900
-#define FDB  0x0C00
+#define X_B  0x0A00
+#define FDB  0x0B00
 
-#define DEL 256//<NoO
-#define GAIN (1/4)
-#define FBG  (1/4)
+#define DEL 126//<NoO
+#define GAIN 3/4
+#define FBG  3/4
 //
 
-volatile int __attribute__((address(0x0800))) * x  = (volatile int *) X_B;
-volatile int __attribute__((address(0x0802))) * f  = (volatile int *) FDB;
-volatile int __attribute__((address(0x0804))) * fo = (volatile int *) FDB;
-volatile int __attribute__((address(0x0806)))   currOut = 0;
+volatile int __attribute__((address(0x0850))) * x  = (volatile int *) X_B;
+volatile int __attribute__((address(0x0852))) * f  = (volatile int *) FDB;
+volatile int __attribute__((address(0x0854))) * fo = (volatile int *) FDB;
+volatile int __attribute__((address(0x0856)))   currOut = 0;
 
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
      int currIn,currFeed = 0;
@@ -61,7 +61,7 @@ void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
 
 int main(void) { 
     clearIO();
-    initXModBuff(x,10)
+    initXModBuff(&x,10);
 
     clearBuff(&f);
     f = f + DEL;
