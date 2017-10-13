@@ -1,7 +1,7 @@
 //LIMIT 16 DONT FUCK UP 
 #define NUMoBUF(a) ADCON2 |= ((a-1)<<2) 
 #define NoB 1//ADC BUFFER
-#define NoO 120//IN/OUT DATA BUFFER
+#define NoO 384//IN/OUT DATA BUFFER
 
 extern void W2XS(int, volatile int **);
 extern int RFXS(volatile int **);

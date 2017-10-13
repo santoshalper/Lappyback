@@ -30,56 +30,45 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-#define X_B  0x0A00
-#define FDB  0x0B00
-#define Y_B  0x0C00
+#define X_B  0x0900
+#define FDB  0x0C00
 
-#define DEL 32//<NoO
+#define DEL 256//<NoO
 #define GAIN (1/4)
 #define FBG  (1/4)
 //
 
-volatile int __attribute__((address(0x0900))) * x  = (volatile int *) X_B;
-volatile int __attribute__((address(0x0902))) * xo = (volatile int *) X_B;
-volatile int __attribute__((address(0x0904))) * f  = (volatile int *) FDB;
-volatile int __attribute__((address(0x0906))) * fo = (volatile int *) FDB;
-volatile int __attribute__((address(0x0908))) * y  = (volatile int *) Y_B;
-volatile int __attribute__((address(0x090A))) * yo = (volatile int *) Y_B;
-volatile int currOut = 0;
-void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
-     OC2RS = currOut;
-     IFS0 &= 0xFFBF;
-}
+volatile int __attribute__((address(0x0800))) * x  = (volatile int *) X_B;
+volatile int __attribute__((address(0x0802))) * f  = (volatile int *) FDB;
+volatile int __attribute__((address(0x0804))) * fo = (volatile int *) FDB;
+volatile int __attribute__((address(0x0806)))   currOut = 0;
 
-void __attribute__((interrupt,auto_psv))_ADCInterrupt (void) {
-    int temp=0;
-    if(modflag == 0) {
+void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
+     int currIn,currFeed = 0;
+     OC2RS = currOut;
+     ADCON1 &= 0xFFFD;//start conversion
      while(!(ADCON1&&0x0001));
-     setXMOD(X_B);
-     for(int i=0;i<NoB; i++) {
-       temp = *((&ADCBUF0)+i) >> 4;
-       W2XS(temp,&x);
-     }
-    }	
-    IFS0 &= 0xF7FF;
+     currIn = ADCBUF0>>4;
+     currFeed=rbyteBuff(&fo);
+     currOut = currIn + GAIN*currFeed; 
+     currFeed= currIn + FBG *currFeed;
+     wbyteBuff(currFeed,&f);
+     wbyteBuff(currIn,&x);
+     ADCON1 |= 0x0002;//start sampling
+     IFS0 &= 0xFFBF;
 }
 
 
 int main(void) { 
-    int currIn,currFeed = 0;
     clearIO();
-    initModBuff(x,y,10,11);
+    initXModBuff(x,10)
+
     clearBuff(&f);
     f = f + DEL;
     inita2d();
     initPWMdac(); 
    
     while (1) {
-        currIn   = rbyteBuff(&xo);
-        currFeed = rbyteBuff(&fo);
-        currOut  = currIn + GAIN*currFeed;
-        currFeed = currIn + FBG *currFeed;
-        wbyteBuff(currFeed,&f);
     }
     return 0;
 }
