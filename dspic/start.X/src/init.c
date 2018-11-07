@@ -1,6 +1,7 @@
 #include "xc.h"
 #include "../include/proj.h"
 
+
 void clearIO(void) {
 //set all i/o to digital
     TRISA = 0x0000;
@@ -48,4 +49,17 @@ void initPWMdac(void) {
      T2CON |= 0x8000;
 }
 
+void initXModBuff(volatile int ** xi, int RegX) {
+    int mask = 0x8000;
+ 
+    mask |= RegX;
+
+    XMODSRT = (int) *xi;
+    XMODEND = ((int) *xi)+(NoO*2)-1;
+    MODCON  = mask;
+    asm ("nop");
+
+    for(int i=0; i<NoO; i++) 
+        W2XS(0,xi);
+}
 

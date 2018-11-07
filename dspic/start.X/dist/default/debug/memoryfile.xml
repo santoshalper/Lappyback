@@ -4,15 +4,15 @@
   <executable name="dist/default/debug/start.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
-      <length>2048</length>
-      <used>88</used>
-      <free>1960</free>
+      <length>6144</length>
+      <used>96</used>
+      <free>6048</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>24192</length>
-      <used>1041</used>
-      <free>23151</free>
+      <used>1104</used>
+      <free>23088</free>
     </memory>
   </executable>
 </project>

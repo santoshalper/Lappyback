@@ -1,4 +1,4 @@
-.global _W2XS, _RFXS, _CLYS
+.global _W2XS, _RFXS
 _W2XS: #write to x space
  mov.w [w1], w10
  mov.w w0, [w10++]

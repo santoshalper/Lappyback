@@ -18,7 +18,6 @@ Command:
   build/default/production/main.o \
   build/default/production/src/init.o \
   build/default/production/src/modbuf.o \
-  build/default/production/src/modulo.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp30F3014.gld.00 \
   --stack=16 \
@@ -80,12 +79,12 @@ Program Memory  [Origin = 0x100, Length = 0x3f00]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x100               0x188           0x24c  (588)
-.text                        0x288               0x164           0x216  (534)
-.dinit                       0x3ec                0x3e            0x5d  (93)
-.text                        0x42a                0x1a            0x27  (39)
+.text                        0x100               0x166           0x219  (537)
+.text                        0x266                0xc2           0x123  (291)
+.dinit                       0x328                0x36            0x51  (81)
+.text                        0x35e                0x12            0x1b  (27)
 
-                 Total program memory used (bytes):          0x4e6  (1254) 5%
+                 Total program memory used (bytes):          0x3a8  (936) 3%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0x7c]
@@ -93,29 +92,21 @@ Ivt Memory  [Origin = 0x4, Length = 0x7c]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .ivt._T2Interrupt             0x20                 0x2             0x3  (3)
-.ivt._ADCInterrupt            0x2a                 0x2             0x3  (3)
-
-
-Aivt Memory  [Origin = 0x84, Length = 0x7c]
-
-section                    address   length (PC units)   length (bytes) (dec)
--------                    -------   -----------------   --------------------
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0x2  (2)
-_041B4E40_at_address_00000900     0x900                   0             0x2  (2)
-_041B4EA0_at_address_00000902     0x902                   0             0x2  (2)
-_041B4F00_at_address_00000904     0x904                   0             0x2  (2)
-_041B4F60_at_address_00000906     0x906                   0             0x2  (2)
-_03F18000_at_address_00000908     0x908                   0             0x2  (2)
-_03F18060_at_address_0000090A     0x90a                   0             0x2  (2)
-_040D0AE0_at_address_0000090C     0x90c                   0             0x2  (2)
+_04160D20_at_address_00000850     0x850                   0             0x2  (2)
+_04160D80_at_address_00000852     0x852                   0             0x2  (2)
+_04160DE0_at_address_00000854     0x854                   0             0x2  (2)
+_04160E40_at_address_00000856     0x856                   0             0x2  (2)
+_04160EA0_at_address_00000858     0x858                   0             0x2  (2)
+_04160F00_at_address_0000085A     0x85a                   0             0x2  (2)
+_04160F60_at_address_0000085C     0x85c                   0             0x2  (2)
 
-                 Total data memory used (bytes):           0x10  (16) <1%
+                 Total data memory used (bytes):            0xe  (14) <1%
 
 
 Dynamic Memory Usage
@@ -123,32 +114,30 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x90e                               0x6f2  (1778)
+stack                        0x85e                               0x7a2  (1954)
 
-                 Maximum dynamic memory (bytes):          0x6f2  (1778)
+                 Maximum dynamic memory (bytes):          0x7a2  (1954)
 
 
 External Symbols in Data Memory (by address):
 
-                    0x0800                  _currOut
-                    0x0900                  _x
-                    0x0902                  _xo
-                    0x0904                  _f
-                    0x0906                  _fo
-                    0x0908                  _y
-                    0x090a                  _yo
-                    0x090c                  _modflag
+                    0x0850                  _x
+                    0x0852                  _xo
+                    0x0854                  _y
+                    0x0856                  _yo
+                    0x0858                  _currOut
+                    0x085a                  _currLag
+                    0x085c                  _flag
 
 External Symbols in Data Memory (by name):
 
-                    0x0800                  _currOut
-                    0x0904                  _f
-                    0x0906                  _fo
-                    0x090c                  _modflag
-                    0x0900                  _x
-                    0x0902                  _xo
-                    0x0908                  _y
-                    0x090a                  _yo
+                    0x085a                  _currLag
+                    0x0858                  _currOut
+                    0x085c                  _flag
+                    0x0850                  _x
+                    0x0852                  _xo
+                    0x0854                  _y
+                    0x0856                  _yo
 
 External Symbols in Program Memory (by address):
 
@@ -157,44 +146,32 @@ External Symbols in Program Memory (by address):
                   0x000152                  __data_init
                   0x000152                  __data_init_standard
                   0x0001c8                  __T2Interrupt
-                  0x0001e4                  __ADCInterrupt
-                  0x000246                  _main
-                  0x000282                  __DefaultInterrupt
-                  0x000288                  _initModBuff
-                  0x0002e2                  _setXMOD
-                  0x0002fc                  _clearBuff
-                  0x000320                  _wbyteBuff
-                  0x00033c                  _rbyteBuff
-                  0x000358                  _clearIO
-                  0x000372                  _inita2d
-                  0x0003b6                  _initPWMdac
-                  0x00042a                  _W2XS
-                  0x000432                  _RFXS
-                  0x00043c                  _CLYS
+                  0x00024c                  _main
+                  0x000260                  __DefaultInterrupt
+                  0x000266                  _clearIO
+                  0x000280                  _inita2d
+                  0x0002ac                  _initPWMdac
+                  0x0002e8                  _initXModBuff
+                  0x00035e                  _W2XS
+                  0x000366                  _RFXS
                   0xf8000a                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x00043c                  _CLYS
-                  0x000432                  _RFXS
-                  0x00042a                  _W2XS
-                  0x0001e4                  __ADCInterrupt
-                  0x000282                  __DefaultInterrupt
+                  0x000366                  _RFXS
+                  0x00035e                  _W2XS
+                  0x000260                  __DefaultInterrupt
                   0xf8000a                  __FGS.sec
                   0x0001c8                  __T2Interrupt
                   0x000152                  __data_init
                   0x000152                  __data_init_standard
                   0x00013c                  __psv_init
                   0x000100                  __resetPRI
-                  0x0002fc                  _clearBuff
-                  0x000358                  _clearIO
-                  0x000288                  _initModBuff
-                  0x0003b6                  _initPWMdac
-                  0x000372                  _inita2d
-                  0x000246                  _main
-                  0x00033c                  _rbyteBuff
-                  0x0002e2                  _setXMOD
-                  0x000320                  _wbyteBuff
+                  0x000266                  _clearIO
+                  0x0002ac                  _initPWMdac
+                  0x0002e8                  _initXModBuff
+                  0x000280                  _inita2d
+                  0x00024c                  _main
 
 Memory Configuration
 
@@ -224,7 +201,6 @@ Linker script and memory map
 LOAD build/default/production/main.o
 LOAD build/default/production/src/init.o
 LOAD build/default/production/src/modbuf.o
-LOAD build/default/production/src/modulo.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD p30F3014
 LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
@@ -254,7 +230,7 @@ LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000100        0x188
+.text             0x000100        0x166
  *(.init)
  .init            0x000100         0x4c c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                   0x000100                  __resetPRI
@@ -266,20 +242,19 @@ LOAD c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0001c8         0xba build/default/production/main.o
+ .isr.text        0x0001c8         0x98 build/default/production/main.o
                   0x0001c8                  __T2Interrupt
-                  0x0001e4                  __ADCInterrupt
-                  0x000246                  _main
- .isr             0x000282          0x4 default_isr
-                  0x000282                  __DefaultInterrupt
+                  0x00024c                  _main
+ .isr             0x000260          0x4 default_isr
+                  0x000260                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x000286          0x2 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
-                  0x000286                  __crt_start_mode
-                  0x000286                  __crt_start_mode_normal
+                  0x000264          0x2 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt_start_mode_normal.Leo)
+                  0x000264                  __crt_start_mode
+                  0x000264                  __crt_start_mode_normal
 
 usercode
  *(usercode)
@@ -328,33 +303,29 @@ userdata
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xa5f
+.debug_info       0x000000        0x7b4
  *(.debug_info)
- .debug_info      0x000000        0x2cb build/default/production/main.o
- .debug_info      0x0002cb        0x416 build/default/production/src/init.o
- .debug_info      0x0006e1         0x7f build/default/production/src/modbuf.o
- .debug_info      0x000760        0x2ff build/default/production/src/modulo.o
+ .debug_info      0x000000        0x25f build/default/production/main.o
+ .debug_info      0x00025f        0x4d6 build/default/production/src/init.o
+ .debug_info      0x000735         0x7f build/default/production/src/modbuf.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x1c7
+.debug_abbrev     0x000000        0x157
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0xbf build/default/production/main.o
- .debug_abbrev    0x0000bf         0x4c build/default/production/src/init.o
- .debug_abbrev    0x00010b         0x14 build/default/production/src/modbuf.o
- .debug_abbrev    0x00011f         0xa8 build/default/production/src/modulo.o
+ .debug_abbrev    0x000000         0x9f build/default/production/main.o
+ .debug_abbrev    0x00009f         0xa4 build/default/production/src/init.o
+ .debug_abbrev    0x000143         0x14 build/default/production/src/modbuf.o
 
-.debug_line       0x000000        0x28b
+.debug_line       0x000000        0x1a6
  *(.debug_line)
- .debug_line      0x000000         0xbe build/default/production/main.o
- .debug_line      0x0000be         0xb8 build/default/production/src/init.o
- .debug_line      0x000176         0x43 build/default/production/src/modbuf.o
- .debug_line      0x0001b9         0xd2 build/default/production/src/modulo.o
+ .debug_line      0x000000         0xa7 build/default/production/main.o
+ .debug_line      0x0000a7         0xc0 build/default/production/src/init.o
+ .debug_line      0x000167         0x3f build/default/production/src/modbuf.o
 
-.debug_frame      0x000000        0x1a6
+.debug_frame      0x000000         0xf8
  *(.debug_frame)
- .debug_frame     0x000000         0x9e build/default/production/main.o
- .debug_frame     0x00009e         0x68 build/default/production/src/init.o
- .debug_frame     0x000106         0xa0 build/default/production/src/modulo.o
+ .debug_frame     0x000000         0x74 build/default/production/main.o
+ .debug_frame     0x000074         0x84 build/default/production/src/init.o
 
 .debug_loc
  *(.debug_loc)
@@ -363,19 +334,17 @@ userdata
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x10e
+                  0x000000         0xb1
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x71 build/default/production/main.o
+                  0x000000         0x67 build/default/production/main.o
  .debug_pubnames
-                  0x000071         0x39 build/default/production/src/init.o
- .debug_pubnames
-                  0x0000aa         0x64 build/default/production/src/modulo.o
+                  0x000067         0x4a build/default/production/src/init.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x60
+.debug_aranges    0x000000         0x48
  *(.debug_aranges)
  .debug_aranges
                   0x000000         0x18 build/default/production/main.o
@@ -383,8 +352,6 @@ userdata
                   0x000018         0x18 build/default/production/src/init.o
  .debug_aranges
                   0x000030         0x18 build/default/production/src/modbuf.o
- .debug_aranges
-                  0x000048         0x18 build/default/production/src/modulo.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -791,72 +758,64 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000060         0x36
+                  0x000048         0x24
  .debug_pubtypes
-                  0x000060         0x12 build/default/production/main.o
+                  0x000048         0x12 build/default/production/main.o
  .debug_pubtypes
-                  0x000072         0x12 build/default/production/src/init.o
- .debug_pubtypes
-                  0x000084         0x12 build/default/production/src/modulo.o
+                  0x00005a         0x12 build/default/production/src/init.o
 
 __c30_signature
-                  0x000096         0x1e
+                  0x00006c         0x18
  __c30_signature
-                  0x000096          0x6 build/default/production/main.o
+                  0x00006c          0x6 build/default/production/main.o
  __c30_signature
-                  0x00009c          0x6 build/default/production/src/init.o
+                  0x000072          0x6 build/default/production/src/init.o
  __c30_signature
-                  0x0000a2          0x6 build/default/production/src/modulo.o
+                  0x000078          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0000a8          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
- __c30_signature
-                  0x0000ae          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x00007e          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
 
-_041B4E40_at_address_00000900
-                    0x0900          0x2
- _041B4E40_at_address_00000900
-                    0x0900          0x2 build/default/production/main.o
-                    0x0900                  _x
+_04160D20_at_address_00000850
+                    0x0850          0x2
+ _04160D20_at_address_00000850
+                    0x0850          0x2 build/default/production/main.o
+                    0x0850                  _x
 
-_041B4EA0_at_address_00000902
-                    0x0902          0x2
- _041B4EA0_at_address_00000902
-                    0x0902          0x2 build/default/production/main.o
-                    0x0902                  _xo
+_04160D80_at_address_00000852
+                    0x0852          0x2
+ _04160D80_at_address_00000852
+                    0x0852          0x2 build/default/production/main.o
+                    0x0852                  _xo
 
-_041B4F00_at_address_00000904
-                    0x0904          0x2
- _041B4F00_at_address_00000904
-                    0x0904          0x2 build/default/production/main.o
-                    0x0904                  _f
+_04160DE0_at_address_00000854
+                    0x0854          0x2
+ _04160DE0_at_address_00000854
+                    0x0854          0x2 build/default/production/main.o
+                    0x0854                  _y
 
-_041B4F60_at_address_00000906
-                    0x0906          0x2
- _041B4F60_at_address_00000906
-                    0x0906          0x2 build/default/production/main.o
-                    0x0906                  _fo
+_04160E40_at_address_00000856
+                    0x0856          0x2
+ _04160E40_at_address_00000856
+                    0x0856          0x2 build/default/production/main.o
+                    0x0856                  _yo
 
-_03F18000_at_address_00000908
-                    0x0908          0x2
- _03F18000_at_address_00000908
-                    0x0908          0x2 build/default/production/main.o
-                    0x0908                  _y
+_04160EA0_at_address_00000858
+                    0x0858          0x2
+ _04160EA0_at_address_00000858
+                    0x0858          0x2 build/default/production/main.o
+                    0x0858                  _currOut
 
-_03F18060_at_address_0000090A
-                    0x090a          0x2
- _03F18060_at_address_0000090A
-                    0x090a          0x2 build/default/production/main.o
-                    0x090a                  _yo
+_04160F00_at_address_0000085A
+                    0x085a          0x2
+ _04160F00_at_address_0000085A
+                    0x085a          0x2 build/default/production/main.o
+                    0x085a                  _currLag
 
-_040D0AE0_at_address_0000090C
-                    0x090c          0x2
- _040D0AE0_at_address_0000090C
-                    0x090c          0x2 build/default/production/src/modulo.o
-                    0x090c                  _modflag
-
-.nbss               0x0800          0x2
- .nbss              0x0800          0x2 build/default/production/main.o
-                    0x0800                  _currOut
+_04160F60_at_address_0000085C
+                    0x085c          0x2
+ _04160F60_at_address_0000085C
+                    0x085c          0x2 build/default/production/main.o
+                    0x085c                  _flag
 
 .config_ICS       0xf8000c          0x2
  .config_ICS      0xf8000c          0x2 build/default/production/main.o
@@ -877,28 +836,17 @@ _040D0AE0_at_address_0000090C
  .ivt._T2Interrupt
                   0x000020          0x2 build/default/production/main.o
 
-.ivt._ADCInterrupt
-                  0x00002a          0x2
- .ivt._ADCInterrupt
-                  0x00002a          0x2 build/default/production/main.o
+.text             0x000266         0xc2
+ .text            0x000266         0xc2 build/default/production/src/init.o
+                  0x000266                  _clearIO
+                  0x000280                  _inita2d
+                  0x0002ac                  _initPWMdac
+                  0x0002e8                  _initXModBuff
 
-.text             0x000288        0x164
- .text            0x000288         0xd0 build/default/production/src/modulo.o
-                  0x000288                  _initModBuff
-                  0x0002e2                  _setXMOD
-                  0x0002fc                  _clearBuff
-                  0x000320                  _wbyteBuff
-                  0x00033c                  _rbyteBuff
- .text            0x000358         0x94 build/default/production/src/init.o
-                  0x000358                  _clearIO
-                  0x000372                  _inita2d
-                  0x0003b6                  _initPWMdac
+.dinit            0x000328         0x36
+ .dinit           0x000328         0x36 data_init
 
-.dinit            0x0003ec         0x3e
- .dinit           0x0003ec         0x3e data_init
-
-.text             0x00042a         0x1a
- .text            0x00042a         0x1a build/default/production/src/modbuf.o
-                  0x00042a                  _W2XS
-                  0x000432                  _RFXS
-                  0x00043c                  _CLYS
+.text             0x00035e         0x12
+ .text            0x00035e         0x12 build/default/production/src/modbuf.o
+                  0x00035e                  _W2XS
+                  0x000366                  _RFXS

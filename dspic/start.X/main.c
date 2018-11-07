@@ -30,41 +30,36 @@
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
 
-#define X_B  0x0A00
-#define FDB  0x0B00
-
-#define DEL 126//<NoO
-#define GAIN 3/4
-#define FBG  3/4
-//
 
 volatile int __attribute__((address(0x0850))) * x  = (volatile int *) X_B;
-volatile int __attribute__((address(0x0852))) * f  = (volatile int *) FDB;
-volatile int __attribute__((address(0x0854))) * fo = (volatile int *) FDB;
-volatile int __attribute__((address(0x0856)))   currOut = 0;
+volatile int __attribute__((address(0x0852))) * xo  = (volatile int *) X_B;
+volatile int __attribute__((address(0x0854))) * y = (volatile int *) Y_B;
+volatile int __attribute__((address(0x0856))) * yo = (volatile int *) Y_B;
+volatile int __attribute__((address(0x0858)))   currOut = 0;
+volatile int __attribute__((address(0x085A)))   currLag = 0;
+volatile int __attribute__((address(0x085C)))   flag = 1;
 
 void __attribute__((interrupt,auto_psv))_T2Interrupt (void) {
-     int currIn,currFeed = 0;
+     int currIn= 0;
      OC2RS = currOut;
      ADCON1 &= 0xFFFD;//start conversion
      while(!(ADCON1&&0x0001));
      currIn = ADCBUF0>>4;
-     currFeed=rbyteBuff(&fo);
-     currOut = currIn + GAIN*currFeed; 
-     currFeed= currIn + FBG *currFeed;
-     wbyteBuff(currFeed,&f);
-     wbyteBuff(currIn,&x);
+     W2XS(currIn,&x);
+     while(currLag++<50) {
+         wbyteUBuff(currIn,&y);
+     }
+     currLag=0;
+     currOut = rbyteUBuff(&yo);
+
      ADCON1 |= 0x0002;//start sampling
      IFS0 &= 0xFFBF;
 }
 
-
 int main(void) { 
     clearIO();
     initXModBuff(&x,10);
-
-    clearBuff(&f);
-    f = f + DEL;
+    initUModBuff(&y);
     inita2d();
     initPWMdac(); 
    
