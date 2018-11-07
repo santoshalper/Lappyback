@@ -9,6 +9,11 @@
 
 extern void W2XS(int, volatile int **);
 extern int RFXS(volatile int **);
+<<<<<<< HEAD
+=======
+extern void CLYS(volatile int **);
+
+>>>>>>> 4e35d1952ec0a293fbc6729cb0f7a99bd6f5d53d
 
 void inita2d(void);
 void initPWMdac(void);

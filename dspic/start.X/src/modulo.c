@@ -15,8 +15,8 @@ void initXModBuff(volatile int ** xi, int RegX) {
         W2XS(0,xi);
 }
 void setXMOD(int buff) {
-    if(buff < 0x0c00) buff = 0x0900;
-    else buff = 0x0c00;
+    if(buff < FDB) buff = X_B;
+    else buff = FDB;
     XMODSRT = buff;
     XMODEND = buff + (NoO*2)-1;
     asm ("nop");   
